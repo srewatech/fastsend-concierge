@@ -52,7 +52,13 @@ export type DeliveryMode = "warehouse_delivery" | "self_drop";
 export type ShoppingDuration = "half_day" | "full_day";
 export type StorageMode = "consolidate" | "immediate";
 export type Frequency = "weekly" | "biweekly" | "monthly" | "one_off";
-export type PaymentMethod = "mobile_money" | "card" | "western_union" | "paypal" | "cash";
+export type PaymentMethod =
+  | "card"
+  | "momo_ussd"
+  | "mobile_money"
+  | "paypal"
+  | "cash_transfer"
+  | "cash";
 
 export interface WizardState {
   accountType: AccountType;
@@ -70,6 +76,7 @@ export interface WizardState {
     beneficiaryName: string;
     beneficiaryPhone: string;
     parcels: Parcel[];
+    parcelCount: string;
     finalDestination: string;
   };
   // Shop for you - store
@@ -137,4 +144,5 @@ export interface WizardState {
   // Common
   paymentMethod: PaymentMethod;
   promoCode: string;
+  referralCode: string;
 }

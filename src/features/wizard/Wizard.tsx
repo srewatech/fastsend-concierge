@@ -85,7 +85,11 @@ export function Wizard() {
                     Estimation
                   </p>
                   <p className="text-xl font-mono font-bold truncate">
-                    {est.amount ? formatMoney(est.amount, est.currency) : "Sur devis"}
+                    {est.amount
+                      ? formatMoney(est.amount, est.currency)
+                      : state.serviceId === "delivery"
+                        ? "Après pesée"
+                        : "Sur devis"}
                   </p>
                 </div>
                 {est.note ? (
