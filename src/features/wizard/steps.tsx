@@ -867,7 +867,7 @@ function detailSummary(s: WizardState): string {
     case "shop_online":
       return `${s.shopOnline.links.length} liens · ${s.shopOnline.basketAmount || 0} €`;
     case "pickup":
-      return `${s.pickup.address || "adresse à préciser"}`;
+      return `${s.pickup.address || "adresse à préciser"}${s.pickup.wantsRedelivery ? " · + réexpédition" : ""}`;
     case "air_freight":
       return `${s.freight.weight || 0} kg · ${s.freight.length}×${s.freight.width}×${s.freight.height} cm`;
     case "elite_pro":
