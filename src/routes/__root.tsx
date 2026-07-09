@@ -77,14 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FastSends — Nouvelle demande d'expédition" },
+      {
+        name: "description",
+        content:
+          "Créez une demande d'expédition FastSends : delivery, shop for you, pick-up, fret aérien et Elite Pro.",
+      },
+      { name: "author", content: "FastSends" },
+      { property: "og:title", content: "FastSends — Nouvelle demande" },
+      {
+        property: "og:description",
+        content: "Wizard mobile-first pour créer une demande d'expédition FastSends.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
