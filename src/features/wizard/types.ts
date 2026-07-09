@@ -115,17 +115,12 @@ export interface WizardState {
   };
   // Pickup
   pickup: {
-    countryFrom: string;
-    countryTo: string;
-    warehouseFrom: string;
     warehouseTo: string;
     address: string;
     contactName: string;
     contactPhone: string;
-    plannedDate: string;
-    plannedTime: string;
     description: string;
-    finalDestination: string;
+    wantsRedelivery: boolean;
   };
   // Air freight
   freight: {

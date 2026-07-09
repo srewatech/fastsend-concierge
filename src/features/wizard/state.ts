@@ -50,17 +50,12 @@ export const initialWizardState: WizardState = {
     instructions: "",
   },
   pickup: {
-    countryFrom: "",
-    countryTo: "",
-    warehouseFrom: "",
     warehouseTo: "",
     address: "",
     contactName: "",
     contactPhone: "",
-    plannedDate: "",
-    plannedTime: "",
     description: "",
-    finalDestination: "",
+    wantsRedelivery: false,
   },
   freight: {
     countryFrom: "",

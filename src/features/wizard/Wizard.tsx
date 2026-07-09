@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { WizardState } from "./types";
-import { initialWizardState, estimateFor, formatMoney } from "./state";
+import { initialWizardState } from "./state";
 import {
   ContactStep,
   ServiceStep,
@@ -27,7 +27,6 @@ export function Wizard() {
   const prev = () => setState((s) => ({ ...s, step: Math.max(1, s.step - 1) }));
   const goto = (n: number) => setState((s) => ({ ...s, step: n }));
 
-  const est = estimateFor(state);
   const showFooter = step < total;
   const primaryLabel = step === 5 ? "Confirmer l'expédition" : step === total ? "" : "Continuer";
   const primaryAction = step === 5 ? () => next() : next;
@@ -79,27 +78,15 @@ export function Wizard() {
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] p-4 pointer-events-none">
           <div className="pointer-events-auto bg-foreground text-background rounded-3xl p-4 shadow-2xl space-y-3 ring-1 ring-white/10">
             {state.serviceId && step >= 3 ? (
-              <div className="flex justify-between items-end">
-                <div className="space-y-0.5 min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">
-                    Estimation
-                  </p>
-                  <p className="text-xl font-mono font-bold truncate">
-                    {est.amount
-                      ? formatMoney(est.amount, est.currency)
-                      : state.serviceId === "delivery"
-                        ? "Après pesée"
-                        : "Sur devis"}
-                  </p>
-                </div>
-                {est.note ? (
-                  <p className="text-[10px] opacity-50 text-right max-w-[55%] leading-tight">
-                    {est.note}
-                  </p>
-                ) : null}
+              <div className="space-y-0.5">
+                <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">
+                  Tarification
+                </p>
+                <p className="text-xs opacity-70 leading-snug">
+                  Le montant final est confirmé par un admin FastSends après vérification.
+                </p>
               </div>
             ) : null}
-
             <button
               type="button"
               disabled={!canNext()}
