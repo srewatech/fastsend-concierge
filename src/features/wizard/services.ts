@@ -93,7 +93,12 @@ export const PAYMENT_METHODS: {
     label: "Mobile Money",
     description: "Paiement direct via nos agrégateurs Mobile Money (MTN, Airtel, Orange…).",
   },
-  { id: "paypal", label: "PayPal", description: "Paiement sécurisé via votre compte PayPal." },
+  {
+    id: "paypal",
+    label: "PayPal",
+    description:
+      "Un lien de paiement PayPal vous sera envoyé par un admin FastSends pour régler votre commande.",
+  },
   {
     id: "cash_transfer",
     label: "Western Union · Ria · MoneyGram",
