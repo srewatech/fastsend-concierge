@@ -15,6 +15,7 @@ export const initialWizardState: WizardState = {
     beneficiaryName: "",
     beneficiaryPhone: "",
     parcels: [],
+    parcelCount: "",
     finalDestination: "",
   },
   shopStore: {
@@ -74,8 +75,9 @@ export const initialWizardState: WizardState = {
     description: "",
     grouping: false,
   },
-  paymentMethod: "mobile_money",
+  paymentMethod: "card",
   promoCode: "",
+  referralCode: "",
 };
 
 export function makeId() {
@@ -98,10 +100,12 @@ export function estimateFor(state: WizardState): { amount: number; currency: str
         note: `Poids facturé ${billable.toFixed(1)} kg (réel ${w} kg · vol. ${vol.toFixed(1)} kg)`,
       };
     }
-    case "delivery": {
-      const count = Math.max(1, state.delivery.parcels.length);
-      return { amount: count * 12000, currency, note: `${count} colis · tarif indicatif` };
-    }
+    case "delivery":
+      return {
+        amount: 0,
+        currency,
+        note: "Estimation après pesée en entrepôt",
+      };
     case "shop_store": {
       const b = parseFloat(state.shopStore.basketAmount) || 0;
       const commission = Math.round(b * 0.12);
