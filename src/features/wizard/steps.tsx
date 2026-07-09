@@ -134,11 +134,24 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
   const d = state.delivery;
   const set = (patch: Partial<typeof d>) =>
     setState((s) => ({ ...s, delivery: { ...s.delivery, ...patch } }));
-  const addParcel = () =>
-    set({ parcels: [...d.parcels, { id: makeId(), reference: "", description: "" }] });
   const updateParcel = (id: string, patch: Partial<Parcel>) =>
     set({ parcels: d.parcels.map((p) => (p.id === id ? { ...p, ...patch } : p)) });
-  const removeParcel = (id: string) => set({ parcels: d.parcels.filter((p) => p.id !== id) });
+  const setParcelCount = (raw: string) => {
+    const n = Math.max(0, Math.min(50, parseInt(raw, 10) || 0));
+    const current = d.parcels;
+    let next = current;
+    if (n > current.length) {
+      const extra = Array.from({ length: n - current.length }, () => ({
+        id: makeId(),
+        reference: "",
+        description: "",
+      }));
+      next = [...current, ...extra];
+    } else if (n < current.length) {
+      next = current.slice(0, n);
+    }
+    set({ parcelCount: raw === "" ? "" : String(n), parcels: next });
+  };
 
   return (
     <div className="space-y-6">
@@ -150,19 +163,6 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
           { id: "self_drop", label: "Déposer moi-même" },
         ]}
       />
-
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="Référence commande">
-          <TextInput
-            value={d.reference}
-            onChange={(e) => set({ reference: e.target.value })}
-            placeholder="Ex : #FS-9021"
-          />
-        </Field>
-        <Field label="Date prévue">
-          <TextInput type="date" value={d.plannedDate} onChange={(e) => set({ plannedDate: e.target.value })} />
-        </Field>
-      </div>
 
       <Field label="Entrepôt de réception">
         <Select
@@ -186,6 +186,14 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
         to={WAREHOUSES_CG.find((w) => w.id === d.warehouseTo)?.label || ""}
       />
 
+      <Field label="Date prévue de livraison">
+        <TextInput
+          type="date"
+          value={d.plannedDate}
+          onChange={(e) => set({ plannedDate: e.target.value })}
+        />
+      </Field>
+
       <div className="grid grid-cols-1 gap-4">
         <Field label="Bénéficiaire">
           <TextInput
@@ -201,35 +209,30 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
             placeholder="+242 …"
           />
         </Field>
-        <Field label="Destination finale">
+        <Field label="Adresse du bénéficiaire">
           <TextInput
             value={d.finalDestination}
             onChange={(e) => set({ finalDestination: e.target.value })}
-            placeholder="Adresse ou quartier de livraison"
+            placeholder="Adresse de livraison finale"
           />
         </Field>
       </div>
 
-      <div className="space-y-3">
-        <SectionTitle
-          aside={
-            <button type="button" onClick={addParcel} className="text-[11px] font-bold text-primary">
-              + Ajouter un colis
-            </button>
-          }
-        >
-          Colis expédiés ({d.parcels.length})
-        </SectionTitle>
-        {d.parcels.length === 0 ? (
-          <button
-            type="button"
-            onClick={addParcel}
-            className="w-full bg-card ring-1 ring-dashed ring-border rounded-xl py-6 text-xs text-muted-foreground"
-          >
-            Aucun colis · appuyez pour ajouter le premier
-          </button>
-        ) : (
-          d.parcels.map((p, i) => (
+      <Field label="Nombre de colis expédiés" hint="Nous générons automatiquement un bordereau par colis.">
+        <TextInput
+          type="number"
+          min={0}
+          max={50}
+          value={d.parcelCount}
+          onChange={(e) => setParcelCount(e.target.value)}
+          placeholder="Ex : 3"
+        />
+      </Field>
+
+      {d.parcels.length > 0 ? (
+        <div className="space-y-3">
+          <SectionTitle>Colis ({d.parcels.length})</SectionTitle>
+          {d.parcels.map((p, i) => (
             <div key={p.id} className="bg-card ring-1 ring-border rounded-xl p-3 space-y-3">
               <div className="flex items-center gap-3">
                 <div className="size-9 shrink-0 bg-muted rounded grid place-items-center font-mono text-xs font-bold">
@@ -240,14 +243,6 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
                   onChange={(e) => updateParcel(p.id, { reference: e.target.value })}
                   placeholder="N° bordereau"
                 />
-                <button
-                  type="button"
-                  onClick={() => removeParcel(p.id)}
-                  className="text-muted-foreground text-lg shrink-0 px-2"
-                  aria-label="Supprimer"
-                >
-                  ✕
-                </button>
               </div>
               <TextInput
                 value={p.description}
@@ -255,11 +250,11 @@ function DeliveryForm({ state, setState }: { state: WizardState; setState: SetSt
                 placeholder="Contenu du colis"
               />
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      ) : null}
 
-      <Field label="Commentaires">
+      <Field label="Commentaire libre">
         <TextArea rows={3} value={d.comments} onChange={(e) => set({ comments: e.target.value })} />
       </Field>
     </div>
