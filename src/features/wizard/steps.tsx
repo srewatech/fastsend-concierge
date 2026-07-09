@@ -519,47 +519,6 @@ function PickupForm({ state, setState }: { state: WizardState; setState: SetStat
     setState((s) => ({ ...s, pickup: { ...s.pickup, ...patch } }));
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="Pays de récupération">
-          <Select
-            value={d.countryFrom}
-            onChange={(v) => set({ countryFrom: v, warehouseFrom: "" })}
-            options={COUNTRIES}
-          />
-        </Field>
-        <Field label="Pays de destination">
-          <Select
-            value={d.countryTo}
-            onChange={(v) => set({ countryTo: v, warehouseTo: "" })}
-            options={COUNTRIES}
-          />
-        </Field>
-      </div>
-
-      {d.countryFrom && (
-        <Field label="Entrepôt de traitement (départ)">
-          <Select
-            value={d.warehouseFrom}
-            onChange={(v) => set({ warehouseFrom: v })}
-            options={warehousesFor(d.countryFrom)}
-          />
-        </Field>
-      )}
-      {d.countryTo && (
-        <Field label="Entrepôt de traitement (arrivée)">
-          <Select
-            value={d.warehouseTo}
-            onChange={(v) => set({ warehouseTo: v })}
-            options={warehousesFor(d.countryTo)}
-          />
-        </Field>
-      )}
-
-      <RouteSchema
-        from={warehousesFor(d.countryFrom).find((w) => w.id === d.warehouseFrom)?.label || ""}
-        to={warehousesFor(d.countryTo).find((w) => w.id === d.warehouseTo)?.label || ""}
-      />
-
       <Field label="Adresse de récupération">
         <TextArea
           rows={2}
@@ -569,33 +528,57 @@ function PickupForm({ state, setState }: { state: WizardState; setState: SetStat
         />
       </Field>
 
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="Date">
-          <TextInput type="date" value={d.plannedDate} onChange={(e) => set({ plannedDate: e.target.value })} />
-        </Field>
-        <Field label="Heure">
-          <TextInput type="time" value={d.plannedTime} onChange={(e) => set({ plannedTime: e.target.value })} />
-        </Field>
-      </div>
-
-      <Field label="Contact sur place">
-        <TextInput value={d.contactName} onChange={(e) => set({ contactName: e.target.value })} placeholder="Nom" />
+      <Field label="Nom & prénom du contact sur place">
+        <TextInput
+          value={d.contactName}
+          onChange={(e) => set({ contactName: e.target.value })}
+          placeholder="Ex : Nadia Mabiala"
+        />
       </Field>
-      <Field label="Téléphone / email de coordination">
-        <TextInput value={d.contactPhone} onChange={(e) => set({ contactPhone: e.target.value })} />
+
+      <Field label="Téléphone du contact">
+        <TextInput
+          value={d.contactPhone}
+          onChange={(e) => set({ contactPhone: e.target.value })}
+          placeholder="+242 …"
+        />
       </Field>
 
       <Field label="Description du colis">
-        <TextArea rows={2} value={d.description} onChange={(e) => set({ description: e.target.value })} />
-      </Field>
-
-      <Field label="Destination finale (adresse client)">
-        <TextInput
-          value={d.finalDestination}
-          onChange={(e) => set({ finalDestination: e.target.value })}
-          placeholder="Adresse de livraison finale"
+        <TextArea
+          rows={2}
+          value={d.description}
+          onChange={(e) => set({ description: e.target.value })}
+          placeholder="Nature, taille approximative, fragilité…"
         />
       </Field>
+
+      <Field label="Adresse de dépôt / stockage FastSends" hint="Entrepôt vers lequel nous ramenons votre colis.">
+        <Select
+          value={d.warehouseTo}
+          onChange={(v) => set({ warehouseTo: v })}
+          options={[...WAREHOUSES_FR, ...WAREHOUSES_CG]}
+          placeholder="Choisissez un entrepôt"
+        />
+      </Field>
+
+      <div className="bg-card ring-1 ring-border rounded-2xl p-4 space-y-3">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="text-sm font-bold">Réexpédition après pick-up ?</p>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              Souhaitez-vous ensuite envoyer ce colis vers une autre destination ?
+            </p>
+          </div>
+          <YesNo value={d.wantsRedelivery} onChange={(v) => set({ wantsRedelivery: v })} />
+        </div>
+        {d.wantsRedelivery ? (
+          <p className="text-[11px] text-muted-foreground leading-relaxed bg-primary/5 ring-1 ring-primary/10 rounded-lg p-3">
+            Une demande <span className="font-bold text-foreground">Delivery</span> sera automatiquement
+            proposée après confirmation de ce pick-up, en la rattachant au même numéro de commande.
+          </p>
+        ) : null}
+      </div>
     </div>
   );
 }
