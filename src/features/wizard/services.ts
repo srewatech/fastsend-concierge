@@ -2,6 +2,14 @@ import type { ServiceDefinition } from "./types";
 
 export const SERVICES: ServiceDefinition[] = [
   {
+    id: "pickup",
+    code: "PICK",
+    name: "Pick-up",
+    tagline: "Enlèvement à domicile",
+    description: "Nous récupérons votre colis à l'adresse de votre choix.",
+    audience: ["particulier", "entreprise"],
+  },
+  {
     id: "delivery",
     code: "DELIV",
     name: "Delivery",
@@ -23,14 +31,6 @@ export const SERVICES: ServiceDefinition[] = [
     name: "Shop For You — En Ligne",
     tagline: "Achats en ligne pour vous",
     description: "Envoyez-nous vos liens : nous commandons puis expédions.",
-    audience: ["particulier", "entreprise"],
-  },
-  {
-    id: "pickup",
-    code: "PICK",
-    name: "Pick-up",
-    tagline: "Enlèvement à domicile",
-    description: "Nous récupérons votre colis à l'adresse de votre choix.",
     audience: ["particulier", "entreprise"],
   },
   {
@@ -72,12 +72,34 @@ export const COUNTRIES = [
   { id: "CD", label: "RD Congo" },
 ];
 
-export const PAYMENT_METHODS: { id: import("./types").PaymentMethod; label: string }[] = [
-  { id: "mobile_money", label: "Mobile Money" },
-  { id: "card", label: "Carte bancaire" },
-  { id: "western_union", label: "Western Union" },
-  { id: "paypal", label: "PayPal" },
-  { id: "cash", label: "Espèces (à l'entrepôt)" },
+export const PAYMENT_METHODS: {
+  id: import("./types").PaymentMethod;
+  label: string;
+  description: string;
+}[] = [
+  {
+    id: "card",
+    label: "Carte bancaire",
+    description:
+      "Un lien de paiement sécurisé (Qonto, Wise ou Stripe) vous sera envoyé par un admin FastSends.",
+  },
+  {
+    id: "momo_ussd",
+    label: "Code USSD Momo",
+    description: "Vous recevrez un code USSD à composer sur votre téléphone pour valider le paiement.",
+  },
+  {
+    id: "mobile_money",
+    label: "Mobile Money",
+    description: "Paiement direct via nos agrégateurs Mobile Money (MTN, Airtel, Orange…).",
+  },
+  { id: "paypal", label: "PayPal", description: "Paiement sécurisé via votre compte PayPal." },
+  {
+    id: "cash_transfer",
+    label: "Western Union · Ria · MoneyGram",
+    description: "Transfert d'espèces via l'un de ces trois opérateurs.",
+  },
+  { id: "cash", label: "Espèces", description: "Paiement en espèces directement à l'entrepôt." },
 ];
 
 export function warehousesFor(countryId: string) {
