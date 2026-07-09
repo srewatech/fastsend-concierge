@@ -793,14 +793,19 @@ export function PaymentStep({ state, setState }: { state: WizardState; setState:
               type="button"
               onClick={() => setState((s) => ({ ...s, paymentMethod: p.id }))}
               className={
-                "w-full text-left flex items-center justify-between p-4 rounded-2xl bg-card transition-all " +
+                "w-full text-left flex items-start justify-between gap-3 p-4 rounded-2xl bg-card transition-all " +
                 (active ? "ring-2 ring-primary" : "ring-1 ring-border")
               }
             >
-              <span className="text-sm font-bold">{p.label}</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-bold">{p.label}</span>
+                <span className="block text-[11px] text-muted-foreground leading-snug mt-0.5">
+                  {p.description}
+                </span>
+              </span>
               <span
                 className={
-                  "size-4 rounded-full border-4 " +
+                  "size-4 rounded-full border-4 shrink-0 mt-1 " +
                   (active ? "border-primary bg-background" : "border-border bg-background")
                 }
               />
@@ -809,13 +814,22 @@ export function PaymentStep({ state, setState }: { state: WizardState; setState:
         })}
       </div>
 
-      <Field label="Code promo" hint="Optionnel">
-        <TextInput
-          value={state.promoCode}
-          onChange={(e) => setState((s) => ({ ...s, promoCode: e.target.value }))}
-          placeholder="Ex : FSNEW10"
-        />
-      </Field>
+      <div className="grid grid-cols-1 gap-4">
+        <Field label="Code promo" hint="Optionnel">
+          <TextInput
+            value={state.promoCode}
+            onChange={(e) => setState((s) => ({ ...s, promoCode: e.target.value }))}
+            placeholder="Ex : FSNEW10"
+          />
+        </Field>
+        <Field label="Code de parrainage" hint="Optionnel">
+          <TextInput
+            value={state.referralCode}
+            onChange={(e) => setState((s) => ({ ...s, referralCode: e.target.value }))}
+            placeholder="Ex : PARRAIN-NADIA"
+          />
+        </Field>
+      </div>
     </div>
   );
 }
@@ -845,6 +859,11 @@ export function SummaryStep({
         <RecapRow
           label="Code promo"
           value={state.promoCode || "Aucun"}
+          onEdit={() => onEdit(4)}
+        />
+        <RecapRow
+          label="Parrainage"
+          value={state.referralCode || "Aucun"}
           onEdit={() => onEdit(4)}
         />
       </div>
