@@ -77,20 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FastSends — Nouvelle demande d'expédition" },
-      {
-        name: "description",
-        content:
-          "Créez une demande d'expédition FastSends : delivery, shop for you, pick-up, fret aérien et Elite Pro.",
-      },
-      { name: "author", content: "FastSends" },
-      { property: "og:title", content: "FastSends — Nouvelle demande" },
-      {
-        property: "og:description",
-        content: "Wizard mobile-first pour créer une demande d'expédition FastSends.",
-      },
+      { title: "Lovable App" },
+      { name: "description", content: "FastShip Hub is a web and mobile application for managing shipping and logistics services." },
+      { name: "author", content: "Lovable" },
+      { property: "og:title", content: "Lovable App" },
+      { property: "og:description", content: "FastShip Hub is a web and mobile application for managing shipping and logistics services." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "twitter:description", content: "FastShip Hub is a web and mobile application for managing shipping and logistics services." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2c2e53ca-8894-4c8c-85bb-905811a89ed2/id-preview-983c86ab--a4f23225-9fc0-4f0e-9d53-fc22e6093558.lovable.app-1783612323794.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2c2e53ca-8894-4c8c-85bb-905811a89ed2/id-preview-983c86ab--a4f23225-9fc0-4f0e-9d53-fc22e6093558.lovable.app-1783612323794.png" },
     ],
     links: [
       {
