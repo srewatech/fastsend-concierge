@@ -27,6 +27,9 @@ export interface DemandParcel {
   weightKg?: number;
   status: ParcelStatus;
   receivedAt?: string;
+  trackingNumber?: string;
+  carrier?: string;
+  receivedBy?: string;
 }
 
 export interface Demand {
@@ -39,6 +42,7 @@ export interface Demand {
   createdAt: string;
   updatedAt: string;
   route: { from: string; to: string };
+  warehouseId?: string; // Entrepôt FR de réception (pour delivery)
   beneficiary?: { name: string; phone: string; address?: string };
   contact: { name: string; email: string; phone: string };
   paymentMethod: string;
@@ -87,6 +91,7 @@ export const DEMANDS: Demand[] = [
     createdAt: "2026-07-08T09:14:00Z",
     updatedAt: "2026-07-12T18:03:00Z",
     route: { from: "Paris CDG", to: "Brazzaville" },
+    warehouseId: "paris-cdg",
     beneficiary: {
       name: "Sarah Mabiala",
       phone: "+242 06 512 4478",
@@ -106,6 +111,8 @@ export const DEMANDS: Demand[] = [
         weightKg: 4.2,
         status: "shipped",
         receivedAt: "2026-07-10T14:20:00Z",
+        trackingNumber: "TBA123456789FR",
+        carrier: "Amazon Logistics",
       },
       {
         id: "p2",
@@ -114,6 +121,8 @@ export const DEMANDS: Demand[] = [
         weightKg: 2.1,
         status: "shipped",
         receivedAt: "2026-07-10T14:25:00Z",
+        trackingNumber: "LX998877665CN",
+        carrier: "Sephora",
       },
       { id: "p3", reference: "BRD-8844", description: "Chaussures", status: "expected" },
     ],
@@ -284,11 +293,184 @@ export const DEMANDS: Demand[] = [
     ],
     notes: "Contacter le client pour la facture pro forma.",
   },
+  // Demandes Delivery supplémentaires — colis attendus en entrepôts FR
+  {
+    id: "FS-DLS-00435",
+    reference: "FS-DLS-00435",
+    serviceId: "delivery",
+    serviceName: "Delivery",
+    serviceCode: "DLS",
+    status: "in_warehouse",
+    createdAt: "2026-07-10T10:00:00Z",
+    updatedAt: "2026-07-13T11:00:00Z",
+    route: { from: "Paris CDG", to: "Brazzaville" },
+    warehouseId: "paris-cdg",
+    beneficiary: { name: "Alain Ngouabi", phone: "+242 06 998 1122" },
+    contact: { name: "Karim T.", email: "karim@example.com", phone: "+33 6 22 33 44 55" },
+    paymentMethod: "Carte bancaire",
+    paymentStatus: "paid",
+    amount: 96000,
+    currency: "XAF",
+    parcels: [
+      {
+        id: "p1",
+        reference: "BRD-9010",
+        description: "Amazon · Casque audio Sony WH-1000XM5",
+        weightKg: 1.1,
+        status: "expected",
+        trackingNumber: "TBA987654321FR",
+        carrier: "Amazon",
+      },
+      {
+        id: "p2",
+        reference: "—",
+        description: "Shein · lot vêtements femme (5 pièces)",
+        weightKg: 3.4,
+        status: "expected",
+        carrier: "Shein",
+      },
+    ],
+    timeline: [
+      { id: "t1", date: "2026-07-10T10:00:00Z", title: "Demande créée", type: "milestone" },
+      { id: "t2", date: "2026-07-10T11:12:00Z", title: "Paiement confirmé", type: "success" },
+    ],
+  },
+  {
+    id: "FS-DLS-00438",
+    reference: "FS-DLS-00438",
+    serviceId: "delivery",
+    serviceName: "Delivery",
+    serviceCode: "DLS",
+    status: "in_warehouse",
+    createdAt: "2026-07-11T14:00:00Z",
+    updatedAt: "2026-07-13T09:00:00Z",
+    route: { from: "Paris CDG", to: "Pointe-Noire" },
+    warehouseId: "paris-cdg",
+    beneficiary: { name: "Alain N.", phone: "+242 05 771 2233" },
+    contact: { name: "Alain Ngouabi", email: "alain@example.com", phone: "+33 7 11 22 33 44" },
+    paymentMethod: "Mobile Money",
+    paymentStatus: "paid",
+    amount: 54000,
+    currency: "XAF",
+    parcels: [
+      {
+        id: "p1",
+        reference: "—",
+        description: "AliExpress · pièces vélo (dérailleur + chaîne)",
+        weightKg: 1.2,
+        status: "expected",
+        carrier: "AliExpress",
+      },
+    ],
+    timeline: [
+      { id: "t1", date: "2026-07-11T14:00:00Z", title: "Demande créée", type: "milestone" },
+    ],
+  },
+  {
+    id: "FS-DLS-00440",
+    reference: "FS-DLS-00440",
+    serviceId: "delivery",
+    serviceName: "Delivery",
+    serviceCode: "DLS",
+    status: "in_warehouse",
+    createdAt: "2026-07-12T08:30:00Z",
+    updatedAt: "2026-07-13T10:00:00Z",
+    route: { from: "Paris Nord", to: "Brazzaville" },
+    warehouseId: "paris-nord",
+    beneficiary: { name: "Grace Loko", phone: "+242 06 445 8899" },
+    contact: { name: "Marie D.", email: "marie@example.com", phone: "+33 6 78 90 12 34" },
+    paymentMethod: "PayPal",
+    paymentStatus: "paid",
+    amount: 78000,
+    currency: "XAF",
+    parcels: [
+      {
+        id: "p1",
+        reference: "BRD-9022",
+        description: "Fnac · livres scolaires",
+        weightKg: 5.2,
+        status: "expected",
+        trackingNumber: "FNC7788994455",
+        carrier: "Chronopost",
+      },
+      {
+        id: "p2",
+        reference: "—",
+        description: "Décathlon · maillots foot enfants",
+        weightKg: 1.8,
+        status: "expected",
+        carrier: "Colissimo",
+      },
+    ],
+    timeline: [
+      { id: "t1", date: "2026-07-12T08:30:00Z", title: "Demande créée", type: "milestone" },
+      { id: "t2", date: "2026-07-12T09:00:00Z", title: "Paiement confirmé", type: "success" },
+    ],
+  },
 ];
 
 export function getDemand(id: string): Demand | undefined {
   return DEMANDS.find((d) => d.id === id);
 }
+
+// Runtime mutable copy pour la simulation admin (réception colis).
+// Les composants qui affichent l'état "vivant" doivent utiliser getRuntimeDemands().
+let RUNTIME_DEMANDS: Demand[] = JSON.parse(JSON.stringify(DEMANDS));
+const listeners = new Set<() => void>();
+
+export function getRuntimeDemands(): Demand[] {
+  return RUNTIME_DEMANDS;
+}
+
+export function getRuntimeDemand(id: string): Demand | undefined {
+  return RUNTIME_DEMANDS.find((d) => d.id === id);
+}
+
+export function subscribeDemands(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+function notify() {
+  listeners.forEach((fn) => fn());
+}
+
+export function receiveParcel(opts: {
+  demandId: string;
+  parcelId: string;
+  weightKg?: number;
+  trackingNumber?: string;
+  actor?: string;
+  warehouseLabel?: string;
+  note?: string;
+}) {
+  const d = RUNTIME_DEMANDS.find((x) => x.id === opts.demandId);
+  if (!d) return;
+  const p = d.parcels.find((x) => x.id === opts.parcelId);
+  if (!p) return;
+  p.status = "received";
+  p.receivedAt = new Date().toISOString();
+  if (opts.weightKg != null) p.weightKg = opts.weightKg;
+  if (opts.trackingNumber && !p.trackingNumber) p.trackingNumber = opts.trackingNumber;
+  if (opts.actor) p.receivedBy = opts.actor;
+  d.updatedAt = new Date().toISOString();
+  const allReceived = d.parcels.every((x) => x.status !== "expected");
+  if (allReceived && d.status === "in_warehouse") {
+    // reste "in_warehouse", en attente d'expédition
+  }
+  d.timeline.push({
+    id: "t" + Math.random().toString(36).slice(2, 7),
+    date: p.receivedAt,
+    title: `Colis ${p.reference !== "—" ? p.reference : p.description.slice(0, 24)} réceptionné`,
+    description: opts.warehouseLabel
+      ? `Entrepôt ${opts.warehouseLabel}${opts.note ? " · " + opts.note : ""}`
+      : opts.note,
+    actor: opts.actor,
+    type: "success",
+  });
+  notify();
+}
+
 
 export function formatMoney(amount: number, currency = "XAF") {
   return amount.toLocaleString("fr-FR").replace(/,/g, "\u202f") + " " + currency;
