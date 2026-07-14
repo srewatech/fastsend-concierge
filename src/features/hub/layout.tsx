@@ -51,50 +51,47 @@ export function HubShell({
   const { warehouseId, setWarehouseId, isAdmin, warehouse, actorName } = useAdminSession();
 
   return (
-    <div className="min-h-screen flex bg-muted/40 text-foreground">
-      {/* Sidebar */}
-      <aside className="hidden md:flex w-[240px] shrink-0 flex-col bg-foreground text-background sticky top-0 h-screen">
-        <div className="px-5 py-5 border-b border-background/10">
-          <p className="font-mono text-[10px] uppercase tracking-widest opacity-60">
-            FastSends
-          </p>
-          <p className="text-lg font-bold">Hub entrepôt</p>
-        </div>
+    <div className="min-h-screen flex flex-col bg-muted/40 text-foreground">
+      {/* Top bar */}
+      <header className="sticky top-0 z-40 bg-foreground text-background">
+        <div className="w-full px-6 py-3 flex items-center gap-6">
+          <Link to="/hub" className="shrink-0">
+            <p className="font-mono text-[10px] uppercase tracking-widest opacity-60">
+              FastSends
+            </p>
+            <p className="text-base font-bold leading-tight">Hub entrepôt</p>
+          </Link>
 
-        <nav className="flex-1 overflow-y-auto py-4">
-          <ul className="space-y-1 px-3">
-            {NAV.map((n) => {
-              const Icon = n.icon;
-              const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
-              return (
-                <li key={n.to}>
-                  <Link
-                    to={n.to}
-                    className={
-                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors " +
-                      (active
-                        ? "bg-primary text-primary-foreground"
-                        : "text-background/70 hover:text-background hover:bg-background/10")
-                    }
-                  >
-                    <Icon className="size-4" />
-                    <span>{n.label}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+          <nav className="hidden md:flex flex-1 min-w-0 overflow-x-auto">
+            <ul className="flex items-center gap-1">
+              {NAV.map((n) => {
+                const Icon = n.icon;
+                const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+                return (
+                  <li key={n.to}>
+                    <Link
+                      to={n.to}
+                      className={
+                        "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors " +
+                        (active
+                          ? "bg-primary text-primary-foreground"
+                          : "text-background/70 hover:text-background hover:bg-background/10")
+                      }
+                    >
+                      <Icon className="size-4" />
+                      <span>{n.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
 
-        <div className="border-t border-background/10 p-3 space-y-2">
-          <label className="block">
-            <span className="text-[9px] font-bold uppercase tracking-widest opacity-60">
-              Entrepôt
-            </span>
+          <div className="ml-auto flex items-center gap-2 shrink-0">
             <select
               value={warehouseId}
               onChange={(e) => setWarehouseId(e.target.value)}
-              className="mt-1 w-full bg-background/10 text-background text-sm rounded-md px-2 py-1.5 ring-1 ring-background/20 focus:outline-none focus:ring-primary"
+              className="hidden sm:block bg-background/10 text-background text-xs rounded-md px-2 py-1.5 ring-1 ring-background/20 focus:outline-none focus:ring-primary"
             >
               {WAREHOUSES.map((w) => (
                 <option key={w.id} value={w.id} className="text-foreground">
@@ -105,58 +102,57 @@ export function HubShell({
                 Tous les entrepôts
               </option>
             </select>
-          </label>
-          <Link
-            to="/admin"
-            className="w-full flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-background/60 hover:text-background px-2 py-1"
-          >
-            <Smartphone className="size-3.5" /> Vue mobile scan
-          </Link>
-          <div className="flex items-center gap-2 px-2 pt-2">
-            <div className="size-8 rounded-full bg-primary text-primary-foreground grid place-items-center text-xs font-bold">
-              {isAdmin ? "AD" : warehouse?.manager.initials}
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs font-bold truncate">{actorName}</p>
-              <p className="text-[10px] opacity-60 truncate">
-                {isAdmin ? "Admin plateforme" : warehouse?.name}
-              </p>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <div className="flex-1 min-w-0 flex flex-col">
-        <header className="sticky top-0 z-30 bg-background/90 backdrop-blur-xl border-b border-border">
-          <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center gap-4">
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                {isAdmin ? "Tous les entrepôts" : (warehouse?.name ?? "Entrepôt")}
-              </p>
-              <h1 className="text-lg font-bold tracking-tight truncate">{title}</h1>
-              {subtitle ? (
-                <p className="text-xs text-muted-foreground truncate">{subtitle}</p>
-              ) : null}
-            </div>
-            <div className="hidden lg:flex items-center gap-2 bg-muted rounded-lg px-3 py-2 w-72">
-              <Search className="size-4 text-muted-foreground" />
-              <input
-                type="search"
-                placeholder="Rechercher demande, tracking, client…"
-                className="bg-transparent focus:outline-none text-sm w-full"
-              />
-            </div>
-            <button className="size-9 rounded-lg bg-muted grid place-items-center relative">
+            <Link
+              to="/admin"
+              title="Vue mobile scan"
+              className="hidden sm:grid size-9 place-items-center rounded-lg bg-background/10 text-background/70 hover:text-background hover:bg-background/20"
+            >
+              <Smartphone className="size-4" />
+            </Link>
+            <button className="size-9 rounded-lg bg-background/10 text-background/80 grid place-items-center relative">
               <Bell className="size-4" />
               <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-primary" />
             </button>
-            {actions}
+            <div className="hidden md:flex items-center gap-2 pl-2 ml-1 border-l border-background/10">
+              <div className="size-8 rounded-full bg-primary text-primary-foreground grid place-items-center text-xs font-bold">
+                {isAdmin ? "AD" : warehouse?.manager.initials}
+              </div>
+              <div className="min-w-0 max-w-[140px]">
+                <p className="text-xs font-bold truncate">{actorName}</p>
+                <p className="text-[10px] opacity-60 truncate">
+                  {isAdmin ? "Admin plateforme" : warehouse?.name}
+                </p>
+              </div>
+            </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        <main className="flex-1 max-w-[1400px] w-full mx-auto px-6 py-6">{children}</main>
+      {/* Breadcrumb / title bar */}
+      <div className="sticky top-[60px] z-30 bg-background/90 backdrop-blur-xl border-b border-border">
+        <div className="w-full px-6 py-4 flex items-center gap-4">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              {isAdmin ? "Tous les entrepôts" : (warehouse?.name ?? "Entrepôt")}
+            </p>
+            <h1 className="text-lg font-bold tracking-tight truncate">{title}</h1>
+            {subtitle ? (
+              <p className="text-xs text-muted-foreground truncate">{subtitle}</p>
+            ) : null}
+          </div>
+          <div className="hidden lg:flex items-center gap-2 bg-muted rounded-lg px-3 py-2 w-72">
+            <Search className="size-4 text-muted-foreground" />
+            <input
+              type="search"
+              placeholder="Rechercher demande, tracking, client…"
+              className="bg-transparent focus:outline-none text-sm w-full"
+            />
+          </div>
+          {actions}
+        </div>
       </div>
+
+      <main className="flex-1 w-full px-6 py-6">{children}</main>
     </div>
   );
 }
