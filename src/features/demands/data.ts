@@ -296,15 +296,29 @@ export function formatMoney(amount: number, currency = "XAF") {
 
 export function formatDate(iso: string) {
   const d = new Date(iso);
-  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+  return d.toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "Europe/Paris",
+  });
 }
 
 export function formatDateTime(iso: string) {
   const d = new Date(iso);
   return (
-    d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }) +
+    d.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      timeZone: "Europe/Paris",
+    }) +
     " · " +
-    d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+    d.toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Europe/Paris",
+    })
   );
 }
 
