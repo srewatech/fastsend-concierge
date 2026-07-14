@@ -471,11 +471,6 @@ export function receiveParcel(opts: {
   notify();
 }
 
-export function useRuntimeDemands(): Demand[] {
-  // Lazy import via React to avoid hard dep here — consumers should call from client only
-  // Actual hook wrapper is defined in features/admin/session.tsx to avoid coupling.
-  return RUNTIME_DEMANDS;
-}
 
 export function formatMoney(amount: number, currency = "XAF") {
   return amount.toLocaleString("fr-FR").replace(/,/g, "\u202f") + " " + currency;
