@@ -6,6 +6,7 @@ import {
   formatMoney,
   formatDate,
   formatDateTime,
+  type Demand,
 } from "@/features/demands/data";
 import { StatusBadge, SectionCard, KeyValue } from "@/features/demands/ui";
 
@@ -60,7 +61,7 @@ const TIMELINE_TONE: Record<
 };
 
 function DemandDetail() {
-  const { demand } = Route.useLoaderData();
+  const { demand } = Route.useLoaderData() as { demand: Demand };
   const meta = STATUS_META[demand.status];
   const received = demand.parcels.filter((p) => p.status !== "expected").length;
 
