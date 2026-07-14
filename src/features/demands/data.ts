@@ -413,6 +413,70 @@ export function getDemand(id: string): Demand | undefined {
   return DEMANDS.find((d) => d.id === id);
 }
 
+// Runtime mutable copy pour la simulation admin (réception colis).
+// Les composants qui affichent l'état "vivant" doivent utiliser getRuntimeDemands().
+let RUNTIME_DEMANDS: Demand[] = JSON.parse(JSON.stringify(DEMANDS));
+const listeners = new Set<() => void>();
+
+export function getRuntimeDemands(): Demand[] {
+  return RUNTIME_DEMANDS;
+}
+
+export function getRuntimeDemand(id: string): Demand | undefined {
+  return RUNTIME_DEMANDS.find((d) => d.id === id);
+}
+
+export function subscribeDemands(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+function notify() {
+  listeners.forEach((fn) => fn());
+}
+
+export function receiveParcel(opts: {
+  demandId: string;
+  parcelId: string;
+  weightKg?: number;
+  trackingNumber?: string;
+  actor?: string;
+  warehouseLabel?: string;
+  note?: string;
+}) {
+  const d = RUNTIME_DEMANDS.find((x) => x.id === opts.demandId);
+  if (!d) return;
+  const p = d.parcels.find((x) => x.id === opts.parcelId);
+  if (!p) return;
+  p.status = "received";
+  p.receivedAt = new Date().toISOString();
+  if (opts.weightKg != null) p.weightKg = opts.weightKg;
+  if (opts.trackingNumber && !p.trackingNumber) p.trackingNumber = opts.trackingNumber;
+  if (opts.actor) p.receivedBy = opts.actor;
+  d.updatedAt = new Date().toISOString();
+  const allReceived = d.parcels.every((x) => x.status !== "expected");
+  if (allReceived && d.status === "in_warehouse") {
+    // reste "in_warehouse", en attente d'expédition
+  }
+  d.timeline.push({
+    id: "t" + Math.random().toString(36).slice(2, 7),
+    date: p.receivedAt,
+    title: `Colis ${p.reference !== "—" ? p.reference : p.description.slice(0, 24)} réceptionné`,
+    description: opts.warehouseLabel
+      ? `Entrepôt ${opts.warehouseLabel}${opts.note ? " · " + opts.note : ""}`
+      : opts.note,
+    actor: opts.actor,
+    type: "success",
+  });
+  notify();
+}
+
+export function useRuntimeDemands(): Demand[] {
+  // Lazy import via React to avoid hard dep here — consumers should call from client only
+  // Actual hook wrapper is defined in features/admin/session.tsx to avoid coupling.
+  return RUNTIME_DEMANDS;
+}
+
 export function formatMoney(amount: number, currency = "XAF") {
   return amount.toLocaleString("fr-FR").replace(/,/g, "\u202f") + " " + currency;
 }
