@@ -71,6 +71,13 @@ function ProfileScreen() {
 
       <div className="px-5 mt-6 space-y-2">
         <Link
+          to="/hub"
+          className="w-full bg-foreground text-background rounded-xl px-4 py-3 text-sm font-bold flex items-center justify-between"
+        >
+          Ouvrir le Hub entrepôt (desktop)
+          <span className="opacity-60">↗</span>
+        </Link>
+        <Link
           to="/demandes"
           className="w-full bg-card ring-1 ring-border rounded-xl px-4 py-3 text-sm font-bold flex items-center justify-between"
         >

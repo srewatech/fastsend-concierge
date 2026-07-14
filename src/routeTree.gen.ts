@@ -18,6 +18,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as HubReceptionRouteImport } from './routes/hub.reception'
 import { Route as HubParcelsRouteImport } from './routes/hub.parcels'
 import { Route as HubDepartsRouteImport } from './routes/hub.departs'
+import { Route as HubArriveesRouteImport } from './routes/hub.arrivees'
 import { Route as DemandesIdRouteImport } from './routes/demandes.$id'
 import { Route as AdminScanRouteImport } from './routes/admin.scan'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
@@ -73,6 +74,11 @@ const HubParcelsRoute = HubParcelsRouteImport.update({
 const HubDepartsRoute = HubDepartsRouteImport.update({
   id: '/departs',
   path: '/departs',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubArriveesRoute = HubArriveesRouteImport.update({
+  id: '/arrivees',
+  path: '/arrivees',
   getParentRoute: () => HubRoute,
 } as any)
 const DemandesIdRoute = DemandesIdRouteImport.update({
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
   '/hub/departs': typeof HubDepartsRoute
   '/hub/parcels': typeof HubParcelsRoute
   '/hub/reception': typeof HubReceptionRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
   '/hub/departs': typeof HubDepartsRoute
   '/hub/parcels': typeof HubParcelsRoute
   '/hub/reception': typeof HubReceptionRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
   '/hub/departs': typeof HubDepartsRoute
   '/hub/parcels': typeof HubParcelsRoute
   '/hub/reception': typeof HubReceptionRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/scan'
     | '/demandes/$id'
+    | '/hub/arrivees'
     | '/hub/departs'
     | '/hub/parcels'
     | '/hub/reception'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/admin/parcels'
     | '/admin/profile'
     | '/demandes/$id'
+    | '/hub/arrivees'
     | '/hub/departs'
     | '/hub/parcels'
     | '/hub/reception'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/scan'
     | '/demandes/$id'
+    | '/hub/arrivees'
     | '/hub/departs'
     | '/hub/parcels'
     | '/hub/reception'
@@ -330,6 +342,13 @@ declare module '@tanstack/react-router' {
       path: '/departs'
       fullPath: '/hub/departs'
       preLoaderRoute: typeof HubDepartsRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/arrivees': {
+      id: '/hub/arrivees'
+      path: '/arrivees'
+      fullPath: '/hub/arrivees'
+      preLoaderRoute: typeof HubArriveesRouteImport
       parentRoute: typeof HubRoute
     }
     '/demandes/$id': {
@@ -459,6 +478,7 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface HubRouteChildren {
+  HubArriveesRoute: typeof HubArriveesRoute
   HubDepartsRoute: typeof HubDepartsRoute
   HubParcelsRoute: typeof HubParcelsRoute
   HubReceptionRoute: typeof HubReceptionRoute
@@ -468,6 +488,7 @@ interface HubRouteChildren {
 }
 
 const HubRouteChildren: HubRouteChildren = {
+  HubArriveesRoute: HubArriveesRoute,
   HubDepartsRoute: HubDepartsRoute,
   HubParcelsRoute: HubParcelsRoute,
   HubReceptionRoute: HubReceptionRoute,
