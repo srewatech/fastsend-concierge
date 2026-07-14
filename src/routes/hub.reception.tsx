@@ -11,7 +11,7 @@ import {
   Plus,
   ChevronRight,
 } from "lucide-react";
-import { HubShell, StatusPill } from "@/features/hub/layout";
+import { HubShell } from "@/features/hub/layout";
 import { useAdminSession, useWarehouseDemands } from "@/features/admin/session";
 import {
   findCandidates,
@@ -421,6 +421,3 @@ function CreateDemandModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
-
-// Re-export helper so we can use StatusPill without unused import warning
-export { StatusPill };
