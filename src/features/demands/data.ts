@@ -27,6 +27,9 @@ export interface DemandParcel {
   weightKg?: number;
   status: ParcelStatus;
   receivedAt?: string;
+  trackingNumber?: string;
+  carrier?: string;
+  receivedBy?: string;
 }
 
 export interface Demand {
@@ -39,6 +42,7 @@ export interface Demand {
   createdAt: string;
   updatedAt: string;
   route: { from: string; to: string };
+  warehouseId?: string; // Entrepôt FR de réception (pour delivery)
   beneficiary?: { name: string; phone: string; address?: string };
   contact: { name: string; email: string; phone: string };
   paymentMethod: string;
