@@ -43,13 +43,20 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-const TABS = [
+type Tab = {
+  to: "/admin" | "/admin/parcels" | "/admin/scan" | "/admin/demandes" | "/admin/profile";
+  label: string;
+  icon: typeof Home;
+  exact?: boolean;
+  primary?: boolean;
+};
+const TABS: Tab[] = [
   { to: "/admin", label: "Accueil", icon: Home, exact: true },
   { to: "/admin/parcels", label: "Colis", icon: Package },
   { to: "/admin/scan", label: "Scan", icon: ScanLine, primary: true },
   { to: "/admin/demandes", label: "Demandes", icon: ClipboardList },
   { to: "/admin/profile", label: "Profil", icon: User },
-] as const;
+];
 
 function TabBar() {
   const { pathname } = useLocation();
