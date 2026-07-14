@@ -4,7 +4,7 @@ import { ArrowLeft, Zap, Image as ImageIcon, Keyboard, ScanLine, Sparkles } from
 import { SCAN_SCENARIOS } from "@/features/admin/matching";
 import { scanStore } from "@/features/admin/scanStore";
 
-export const Route = createFileRoute("/admin/scan")({
+export const Route = createFileRoute("/admin/scan/")({
   component: ScanScreen,
 });
 

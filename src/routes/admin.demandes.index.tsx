@@ -5,7 +5,7 @@ import { useWarehouseDemands } from "@/features/admin/session";
 import { STATUS_META } from "@/features/demands/data";
 import { StatusBadge } from "@/features/demands/ui";
 
-export const Route = createFileRoute("/admin/demandes")({
+export const Route = createFileRoute("/admin/demandes/")({
   component: AdminDemandsList,
 });
 
