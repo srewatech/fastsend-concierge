@@ -1,4 +1,6 @@
 import type { WizardState } from "./types";
+import type { ServiceId } from "./types";
+import { SERVICE_ID_CODES } from "./services";
 
 export const initialWizardState: WizardState = {
   accountType: "particulier",
@@ -77,6 +79,50 @@ export const initialWizardState: WizardState = {
 
 export function makeId() {
   return Math.random().toString(36).slice(2, 10);
+}
+
+// Génère un identifiant lisible de demande : FS-PUS-00042.
+export function generateDemandId(serviceId: ServiceId): string {
+  const code = SERVICE_ID_CODES[serviceId] ?? "GEN";
+  const num = Math.floor(Math.random() * 99999) + 1;
+  return `FS-${code}-${String(num).padStart(5, "0")}`;
+}
+
+// Prépare un état pré-rempli pour enchaîner sur une demande Delivery
+// à partir d'un Pickup ou d'un Shop For You déjà créé.
+export function chainToDelivery(prev: WizardState, parentId: string): WizardState {
+  const base: WizardState = {
+    ...initialWizardState,
+    accountType: prev.accountType,
+    contact: prev.contact,
+    linkedFromId: parentId,
+    linkedFromService: prev.serviceId ?? undefined,
+    serviceId: "delivery",
+    step: 3,
+  };
+  // Pré-remplir l'entrepôt de départ selon le service parent.
+  if (prev.serviceId === "pickup") {
+    base.delivery = {
+      ...base.delivery,
+      warehouseFrom: prev.pickup.warehouseTo,
+      comments: `Suite au pick-up ${parentId}. ${prev.pickup.description || ""}`.trim(),
+    };
+  } else if (prev.serviceId === "shop_store") {
+    base.delivery = {
+      ...base.delivery,
+      warehouseFrom: "",
+      warehouseTo: prev.shopStore.warehouseTo,
+      comments: `Suite au Shop For You Magasin ${parentId}.`,
+    };
+  } else if (prev.serviceId === "shop_online") {
+    base.delivery = {
+      ...base.delivery,
+      warehouseFrom: "",
+      warehouseTo: prev.shopOnline.warehouseTo,
+      comments: `Suite au Shop For You En Ligne ${parentId}.`,
+    };
+  }
+  return base;
 }
 
 export function estimateFor(state: WizardState): { amount: number; currency: string; note?: string } {

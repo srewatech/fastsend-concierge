@@ -912,7 +912,17 @@ export function StepHeader({ title, subtitle }: { title: string; subtitle?: stri
 }
 
 /* --------------------------- Confirmation --------------------------- */
-export function ConfirmationStep({ state }: { state: WizardState }) {
+export function ConfirmationStep({
+  state,
+  demandId,
+  canChainDelivery,
+  onChainDelivery,
+}: {
+  state: WizardState;
+  demandId: string | null;
+  canChainDelivery: boolean;
+  onChainDelivery: () => void;
+}) {
   const svc = SERVICES.find((s) => s.id === state.serviceId);
   return (
     <div className="space-y-8 py-8 text-center">
@@ -920,20 +930,48 @@ export function ConfirmationStep({ state }: { state: WizardState }) {
         <span className="text-primary font-mono text-2xl font-bold">✓</span>
       </div>
       <div className="space-y-2">
-        <h1 className="text-3xl font-extrabold tracking-tight">Demande envoyée</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight">Demande enregistrée</h1>
         <p className="text-sm text-muted-foreground text-pretty">
-          Votre demande <span className="font-mono font-bold text-foreground">{svc?.code}</span> a été
-          transmise à FastSends. Vous recevrez une confirmation par email et WhatsApp.
+          Votre demande{" "}
+          <span className="font-mono font-bold text-foreground">{svc?.name}</span> a été transmise à
+          FastSends. Vous recevrez une confirmation par email et WhatsApp.
         </p>
+        {state.linkedFromId ? (
+          <p className="text-[11px] text-muted-foreground">
+            Rattachée à la demande{" "}
+            <span className="font-mono font-bold text-foreground">{state.linkedFromId}</span>.
+          </p>
+        ) : null}
       </div>
       <div className="bg-card ring-1 ring-border rounded-2xl p-4 mx-auto max-w-xs">
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-1">
           Numéro de suivi
         </p>
-        <p className="font-mono text-lg font-bold">
-          FS-{Math.random().toString(36).slice(2, 8).toUpperCase()}
-        </p>
+        <p className="font-mono text-lg font-bold">{demandId ?? "…"}</p>
       </div>
+
+      {canChainDelivery ? (
+        <div className="mx-auto max-w-xs bg-primary/5 ring-1 ring-primary/15 rounded-2xl p-4 text-left space-y-2">
+          <p className="text-[10px] uppercase tracking-widest font-bold text-primary">
+            Étape suivante
+          </p>
+          <p className="text-sm font-bold leading-snug">
+            Créons maintenant votre demande Delivery
+          </p>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            {state.serviceId === "pickup"
+              ? "Vous avez demandé une réexpédition après le pick-up. On reprend directement à l'étape essentielle : destination et bénéficiaire."
+              : "Vos articles doivent ensuite être expédiés. On enchaîne directement sur les détails Delivery, sans re-saisir vos coordonnées."}
+          </p>
+          <button
+            type="button"
+            onClick={onChainDelivery}
+            className="mt-2 w-full bg-primary text-primary-foreground font-bold py-3 rounded-xl text-sm"
+          >
+            Continuer vers la demande Delivery →
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,4 +1,15 @@
 import type { ServiceDefinition } from "./types";
+import type { ServiceId } from "./types";
+
+// Codes utilisés pour générer les identifiants de demandes (FS-XXX-00000).
+export const SERVICE_ID_CODES: Record<ServiceId, string> = {
+  pickup: "PUS",
+  delivery: "DLS",
+  shop_online: "SFL",
+  shop_store: "SFB",
+  air_freight: "FRA",
+  elite_pro: "EPS",
+};
 
 export const SERVICES: ServiceDefinition[] = [
   {

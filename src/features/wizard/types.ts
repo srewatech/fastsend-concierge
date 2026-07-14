@@ -63,6 +63,9 @@ export type PaymentMethod =
 export interface WizardState {
   accountType: AccountType;
   step: number;
+  // Chaînage entre demandes (ex : Pickup → Delivery, Shop → Delivery).
+  linkedFromId?: string;
+  linkedFromService?: ServiceId;
   contact: ContactInfo;
   serviceId: ServiceId | null;
   // Delivery
