@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HubRouteImport } from './routes/hub'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemandesIndexRouteImport } from './routes/demandes.index'
@@ -23,6 +24,11 @@ import { Route as AdminDemandesIndexRouteImport } from './routes/admin.demandes.
 import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
 import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id'
 
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -92,6 +98,7 @@ const AdminDemandesIdRoute = AdminDemandesIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/hub': typeof HubRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/hub': typeof HubRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/demandes/$id': typeof DemandesIdRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/hub': typeof HubRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/hub'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/hub'
     | '/admin/parcels'
     | '/admin/profile'
     | '/demandes/$id'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/hub'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
@@ -180,12 +192,20 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  HubRoute: typeof HubRoute
   DemandesIdRoute: typeof DemandesIdRoute
   DemandesIndexRoute: typeof DemandesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -329,6 +349,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  HubRoute: HubRoute,
   DemandesIdRoute: DemandesIdRoute,
   DemandesIndexRoute: DemandesIndexRoute,
 }
