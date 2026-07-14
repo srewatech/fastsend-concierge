@@ -54,12 +54,20 @@ function DemandsList() {
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             FastSends / Mes demandes
           </span>
-          <Link
-            to="/"
-            className="text-[10px] font-bold uppercase tracking-widest text-primary"
-          >
-            + Nouvelle
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              to="/admin"
+              className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground"
+            >
+              Vue manager →
+            </Link>
+            <Link
+              to="/"
+              className="text-[10px] font-bold uppercase tracking-widest text-primary"
+            >
+              + Nouvelle
+            </Link>
+          </div>
         </div>
         <div className="flex items-baseline gap-2 mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Mes demandes</h1>
