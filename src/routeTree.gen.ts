@@ -16,6 +16,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as DemandesIdRouteImport } from './routes/demandes.$id'
 import { Route as AdminScanRouteImport } from './routes/admin.scan'
 import { Route as AdminParcelsRouteImport } from './routes/admin.parcels'
+import { Route as AdminDemandesRouteImport } from './routes/admin.demandes'
 import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
 
 const AdminRoute = AdminRouteImport.update({
@@ -53,6 +54,11 @@ const AdminParcelsRoute = AdminParcelsRouteImport.update({
   path: '/parcels',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminDemandesRoute = AdminDemandesRouteImport.update({
+  id: '/demandes',
+  path: '/demandes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminScanMatchRoute = AdminScanMatchRouteImport.update({
   id: '/match',
   path: '/match',
@@ -62,6 +68,7 @@ const AdminScanMatchRoute = AdminScanMatchRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin/demandes': typeof AdminDemandesRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/demandes': typeof AdminDemandesRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
@@ -82,6 +90,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin/demandes': typeof AdminDemandesRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/scan'
     | '/demandes/$id'
@@ -103,6 +113,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/scan'
     | '/demandes/$id'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/scan'
     | '/demandes/$id'
@@ -179,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminParcelsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/demandes': {
+      id: '/admin/demandes'
+      path: '/demandes'
+      fullPath: '/admin/demandes'
+      preLoaderRoute: typeof AdminDemandesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/scan/match': {
       id: '/admin/scan/match'
       path: '/match'
@@ -202,12 +221,14 @@ const AdminScanRouteWithChildren = AdminScanRoute._addFileChildren(
 )
 
 interface AdminRouteChildren {
+  AdminDemandesRoute: typeof AdminDemandesRoute
   AdminParcelsRoute: typeof AdminParcelsRoute
   AdminScanRoute: typeof AdminScanRouteWithChildren
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminDemandesRoute: AdminDemandesRoute,
   AdminParcelsRoute: AdminParcelsRoute,
   AdminScanRoute: AdminScanRouteWithChildren,
   AdminIndexRoute: AdminIndexRoute,
