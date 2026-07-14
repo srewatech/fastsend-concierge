@@ -9,20 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HubRouteImport } from './routes/hub'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HubIndexRouteImport } from './routes/hub.index'
 import { Route as DemandesIndexRouteImport } from './routes/demandes.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as HubReceptionRouteImport } from './routes/hub.reception'
+import { Route as HubParcelsRouteImport } from './routes/hub.parcels'
+import { Route as HubDepartsRouteImport } from './routes/hub.departs'
+import { Route as HubArriveesRouteImport } from './routes/hub.arrivees'
 import { Route as DemandesIdRouteImport } from './routes/demandes.$id'
 import { Route as AdminScanRouteImport } from './routes/admin.scan'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminParcelsRouteImport } from './routes/admin.parcels'
 import { Route as AdminDemandesRouteImport } from './routes/admin.demandes'
+import { Route as HubValisesIndexRouteImport } from './routes/hub.valises.index'
 import { Route as AdminScanIndexRouteImport } from './routes/admin.scan.index'
 import { Route as AdminDemandesIndexRouteImport } from './routes/admin.demandes.index'
+import { Route as HubValisesIdRouteImport } from './routes/hub.valises.$id'
 import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
 import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id'
 
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -33,6 +46,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HubIndexRoute = HubIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HubRoute,
+} as any)
 const DemandesIndexRoute = DemandesIndexRouteImport.update({
   id: '/demandes/',
   path: '/demandes/',
@@ -42,6 +60,26 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const HubReceptionRoute = HubReceptionRouteImport.update({
+  id: '/reception',
+  path: '/reception',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubParcelsRoute = HubParcelsRouteImport.update({
+  id: '/parcels',
+  path: '/parcels',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubDepartsRoute = HubDepartsRouteImport.update({
+  id: '/departs',
+  path: '/departs',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubArriveesRoute = HubArriveesRouteImport.update({
+  id: '/arrivees',
+  path: '/arrivees',
+  getParentRoute: () => HubRoute,
 } as any)
 const DemandesIdRoute = DemandesIdRouteImport.update({
   id: '/demandes/$id',
@@ -68,6 +106,11 @@ const AdminDemandesRoute = AdminDemandesRouteImport.update({
   path: '/demandes',
   getParentRoute: () => AdminRoute,
 } as any)
+const HubValisesIndexRoute = HubValisesIndexRouteImport.update({
+  id: '/valises/',
+  path: '/valises/',
+  getParentRoute: () => HubRoute,
+} as any)
 const AdminScanIndexRoute = AdminScanIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -77,6 +120,11 @@ const AdminDemandesIndexRoute = AdminDemandesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminDemandesRoute,
+} as any)
+const HubValisesIdRoute = HubValisesIdRouteImport.update({
+  id: '/valises/$id',
+  path: '/valises/$id',
+  getParentRoute: () => HubRoute,
 } as any)
 const AdminScanMatchRoute = AdminScanMatchRouteImport.update({
   id: '/match',
@@ -92,100 +140,154 @@ const AdminDemandesIdRoute = AdminDemandesIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/hub': typeof HubRouteWithChildren
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
+  '/hub/departs': typeof HubDepartsRoute
+  '/hub/parcels': typeof HubParcelsRoute
+  '/hub/reception': typeof HubReceptionRoute
   '/admin/': typeof AdminIndexRoute
   '/demandes/': typeof DemandesIndexRoute
+  '/hub/': typeof HubIndexRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
+  '/hub/valises/$id': typeof HubValisesIdRoute
   '/admin/demandes/': typeof AdminDemandesIndexRoute
   '/admin/scan/': typeof AdminScanIndexRoute
+  '/hub/valises/': typeof HubValisesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
+  '/hub/departs': typeof HubDepartsRoute
+  '/hub/parcels': typeof HubParcelsRoute
+  '/hub/reception': typeof HubReceptionRoute
   '/admin': typeof AdminIndexRoute
   '/demandes': typeof DemandesIndexRoute
+  '/hub': typeof HubIndexRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
+  '/hub/valises/$id': typeof HubValisesIdRoute
   '/admin/demandes': typeof AdminDemandesIndexRoute
   '/admin/scan': typeof AdminScanIndexRoute
+  '/hub/valises': typeof HubValisesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/hub': typeof HubRouteWithChildren
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/scan': typeof AdminScanRouteWithChildren
   '/demandes/$id': typeof DemandesIdRoute
+  '/hub/arrivees': typeof HubArriveesRoute
+  '/hub/departs': typeof HubDepartsRoute
+  '/hub/parcels': typeof HubParcelsRoute
+  '/hub/reception': typeof HubReceptionRoute
   '/admin/': typeof AdminIndexRoute
   '/demandes/': typeof DemandesIndexRoute
+  '/hub/': typeof HubIndexRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
+  '/hub/valises/$id': typeof HubValisesIdRoute
   '/admin/demandes/': typeof AdminDemandesIndexRoute
   '/admin/scan/': typeof AdminScanIndexRoute
+  '/hub/valises/': typeof HubValisesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
+    | '/hub'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
     | '/admin/scan'
     | '/demandes/$id'
+    | '/hub/arrivees'
+    | '/hub/departs'
+    | '/hub/parcels'
+    | '/hub/reception'
     | '/admin/'
     | '/demandes/'
+    | '/hub/'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
+    | '/hub/valises/$id'
     | '/admin/demandes/'
     | '/admin/scan/'
+    | '/hub/valises/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin/parcels'
     | '/admin/profile'
     | '/demandes/$id'
+    | '/hub/arrivees'
+    | '/hub/departs'
+    | '/hub/parcels'
+    | '/hub/reception'
     | '/admin'
     | '/demandes'
+    | '/hub'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
+    | '/hub/valises/$id'
     | '/admin/demandes'
     | '/admin/scan'
+    | '/hub/valises'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/hub'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
     | '/admin/scan'
     | '/demandes/$id'
+    | '/hub/arrivees'
+    | '/hub/departs'
+    | '/hub/parcels'
+    | '/hub/reception'
     | '/admin/'
     | '/demandes/'
+    | '/hub/'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
+    | '/hub/valises/$id'
     | '/admin/demandes/'
     | '/admin/scan/'
+    | '/hub/valises/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  HubRoute: typeof HubRouteWithChildren
   DemandesIdRoute: typeof DemandesIdRoute
   DemandesIndexRoute: typeof DemandesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -200,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hub/': {
+      id: '/hub/'
+      path: '/'
+      fullPath: '/hub/'
+      preLoaderRoute: typeof HubIndexRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/demandes/': {
       id: '/demandes/'
       path: '/demandes'
@@ -213,6 +322,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/hub/reception': {
+      id: '/hub/reception'
+      path: '/reception'
+      fullPath: '/hub/reception'
+      preLoaderRoute: typeof HubReceptionRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/parcels': {
+      id: '/hub/parcels'
+      path: '/parcels'
+      fullPath: '/hub/parcels'
+      preLoaderRoute: typeof HubParcelsRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/departs': {
+      id: '/hub/departs'
+      path: '/departs'
+      fullPath: '/hub/departs'
+      preLoaderRoute: typeof HubDepartsRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/arrivees': {
+      id: '/hub/arrivees'
+      path: '/arrivees'
+      fullPath: '/hub/arrivees'
+      preLoaderRoute: typeof HubArriveesRouteImport
+      parentRoute: typeof HubRoute
     }
     '/demandes/$id': {
       id: '/demandes/$id'
@@ -249,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDemandesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/hub/valises/': {
+      id: '/hub/valises/'
+      path: '/valises'
+      fullPath: '/hub/valises/'
+      preLoaderRoute: typeof HubValisesIndexRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/admin/scan/': {
       id: '/admin/scan/'
       path: '/'
@@ -262,6 +406,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/demandes/'
       preLoaderRoute: typeof AdminDemandesIndexRouteImport
       parentRoute: typeof AdminDemandesRoute
+    }
+    '/hub/valises/$id': {
+      id: '/hub/valises/$id'
+      path: '/valises/$id'
+      fullPath: '/hub/valises/$id'
+      preLoaderRoute: typeof HubValisesIdRouteImport
+      parentRoute: typeof HubRoute
     }
     '/admin/scan/match': {
       id: '/admin/scan/match'
@@ -326,9 +477,32 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface HubRouteChildren {
+  HubArriveesRoute: typeof HubArriveesRoute
+  HubDepartsRoute: typeof HubDepartsRoute
+  HubParcelsRoute: typeof HubParcelsRoute
+  HubReceptionRoute: typeof HubReceptionRoute
+  HubIndexRoute: typeof HubIndexRoute
+  HubValisesIdRoute: typeof HubValisesIdRoute
+  HubValisesIndexRoute: typeof HubValisesIndexRoute
+}
+
+const HubRouteChildren: HubRouteChildren = {
+  HubArriveesRoute: HubArriveesRoute,
+  HubDepartsRoute: HubDepartsRoute,
+  HubParcelsRoute: HubParcelsRoute,
+  HubReceptionRoute: HubReceptionRoute,
+  HubIndexRoute: HubIndexRoute,
+  HubValisesIdRoute: HubValisesIdRoute,
+  HubValisesIndexRoute: HubValisesIndexRoute,
+}
+
+const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  HubRoute: HubRouteWithChildren,
   DemandesIdRoute: DemandesIdRoute,
   DemandesIndexRoute: DemandesIndexRoute,
 }

@@ -30,6 +30,12 @@ export interface DemandParcel {
   trackingNumber?: string;
   carrier?: string;
   receivedBy?: string;
+  /** Statut paiement du colis (facturation au réel après pesée). */
+  paymentStatus?: "pending" | "paid";
+  /** Valise dans laquelle le colis a été chargé. */
+  valiseId?: string;
+  /** Contrôle à l'arrivée destination. */
+  arrivalCheck?: "ok" | "missing" | "damaged";
 }
 
 export interface Demand {
