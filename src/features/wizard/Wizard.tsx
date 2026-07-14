@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { WizardState } from "./types";
-import { initialWizardState } from "./state";
+import { initialWizardState, generateDemandId, chainToDelivery } from "./state";
 import {
   ContactStep,
   ServiceStep,
@@ -14,6 +14,7 @@ const STEPS = ["Contact", "Besoin", "Détails", "Paiement", "Récap", "Confirmat
 
 export function Wizard() {
   const [state, setState] = useState<WizardState>(initialWizardState);
+  const [confirmedId, setConfirmedId] = useState<string | null>(null);
   const step = state.step;
   const total = STEPS.length;
 
@@ -26,6 +27,29 @@ export function Wizard() {
   const next = () => setState((s) => ({ ...s, step: Math.min(total, s.step + 1) }));
   const prev = () => setState((s) => ({ ...s, step: Math.max(1, s.step - 1) }));
   const goto = (n: number) => setState((s) => ({ ...s, step: n }));
+
+  // Génère l'ID côté client uniquement à l'entrée de l'écran de confirmation
+  // pour éviter les mismatches d'hydratation (Math.random côté SSR).
+  useEffect(() => {
+    if (step === total && state.serviceId && !confirmedId) {
+      setConfirmedId(generateDemandId(state.serviceId));
+    }
+    if (step < total && confirmedId) {
+      setConfirmedId(null);
+    }
+  }, [step, total, state.serviceId, confirmedId]);
+
+  const canChainDelivery =
+    !!state.serviceId &&
+    ((state.serviceId === "pickup" && state.pickup.wantsRedelivery) ||
+      state.serviceId === "shop_store" ||
+      state.serviceId === "shop_online");
+
+  const startChainedDelivery = () => {
+    if (!confirmedId) return;
+    setState((s) => chainToDelivery(s, confirmedId));
+    setConfirmedId(null);
+  };
 
   const showFooter = step < total;
   const primaryLabel = step === 5 ? "Confirmer l'expédition" : step === total ? "" : "Continuer";
@@ -71,7 +95,14 @@ export function Wizard() {
         {step === 3 && <DetailsStep state={state} setState={setState} />}
         {step === 4 && <PaymentStep state={state} setState={setState} />}
         {step === 5 && <SummaryStep state={state} onEdit={goto} />}
-        {step === 6 && <ConfirmationStep state={state} />}
+        {step === 6 && (
+          <ConfirmationStep
+            state={state}
+            demandId={confirmedId}
+            canChainDelivery={canChainDelivery}
+            onChainDelivery={startChainedDelivery}
+          />
+        )}
       </main>
 
       {showFooter ? (
@@ -99,13 +130,27 @@ export function Wizard() {
         </div>
       ) : (
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] p-4">
-          <button
-            type="button"
-            onClick={() => setState(initialWizardState)}
-            className="w-full bg-foreground text-background font-bold py-4 rounded-xl"
-          >
-            Créer une nouvelle demande
-          </button>
+          <div className="space-y-2">
+            {canChainDelivery ? (
+              <button
+                type="button"
+                onClick={startChainedDelivery}
+                className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl"
+              >
+                Enchaîner sur une demande Delivery →
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => {
+                setConfirmedId(null);
+                setState(initialWizardState);
+              }}
+              className="w-full bg-foreground text-background font-bold py-4 rounded-xl"
+            >
+              Créer une nouvelle demande
+            </button>
+          </div>
         </div>
       )}
     </div>
