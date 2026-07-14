@@ -91,6 +91,7 @@ export const DEMANDS: Demand[] = [
     createdAt: "2026-07-08T09:14:00Z",
     updatedAt: "2026-07-12T18:03:00Z",
     route: { from: "Paris CDG", to: "Brazzaville" },
+    warehouseId: "paris-cdg",
     beneficiary: {
       name: "Sarah Mabiala",
       phone: "+242 06 512 4478",
@@ -110,6 +111,8 @@ export const DEMANDS: Demand[] = [
         weightKg: 4.2,
         status: "shipped",
         receivedAt: "2026-07-10T14:20:00Z",
+        trackingNumber: "TBA123456789FR",
+        carrier: "Amazon Logistics",
       },
       {
         id: "p2",
@@ -118,6 +121,8 @@ export const DEMANDS: Demand[] = [
         weightKg: 2.1,
         status: "shipped",
         receivedAt: "2026-07-10T14:25:00Z",
+        trackingNumber: "LX998877665CN",
+        carrier: "Sephora",
       },
       { id: "p3", reference: "BRD-8844", description: "Chaussures", status: "expected" },
     ],
