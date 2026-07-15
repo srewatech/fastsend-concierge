@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "sdk_version": "0.22.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://mtbxjoocgqweocekwqbf.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "fastsends-mcp",
+      "version": "0.1.0",
+      "title": "FastSends MCP"
+    },
+    "tools": [
+      {
+        "name": "whoami",
+        "title": "Utilisateur connecté",
+        "description": "Retourne l'identifiant et l'email de l'utilisateur FastSends actuellement authentifié via OAuth.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_demands",
+        "title": "Lister les demandes",
+        "description": "Liste les demandes FastSends (transport / livraison / shop-for-you / pick-up / fret). Filtres optionnels par statut et par service. Retourne un résumé (référence, service, statut, route, montant).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filtrer par statut de demande.",
+              "type": "string",
+              "enum": [
+                "pending_review",
+                "awaiting_payment",
+                "in_warehouse",
+                "in_transit",
+                "customs",
+                "delivered",
+                "cancelled"
+              ]
+            },
+            "serviceId": {
+              "description": "Filtrer par service (ex: delivery, shop_online, pickup, air_freight).",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Nombre maximum de résultats (par défaut 50).",
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_demand",
+        "title": "Détail d'une demande",
+        "description": "Retourne le détail complet d'une demande FastSends par identifiant ou référence (colis, timeline, itinéraire, bénéficiaire, contact, paiement, notes).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Identifiant ou référence de la demande, ex: FS-DLS-00421."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_parcels",
+        "title": "Lister les colis",
+        "description": "Liste les colis de toutes les demandes FastSends. Filtres optionnels par statut de colis et par entrepôt d'origine (warehouseId de la demande).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filtrer par statut de colis.",
+              "type": "string",
+              "enum": [
+                "expected",
+                "received",
+                "shipped",
+                "delivered",
+                "issue"
+              ]
+            },
+            "warehouseId": {
+              "description": "Filtrer par entrepôt de réception (ex: paris-cdg, paris-nord).",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Nombre maximum de colis (par défaut 100).",
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
