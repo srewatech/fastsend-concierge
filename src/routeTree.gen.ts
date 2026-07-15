@@ -9,7 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HubRouteImport } from './routes/hub'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HubIndexRouteImport } from './routes/hub.index'
@@ -24,16 +26,30 @@ import { Route as AdminScanRouteImport } from './routes/admin.scan'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminParcelsRouteImport } from './routes/admin.parcels'
 import { Route as AdminDemandesRouteImport } from './routes/admin.demandes'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as HubValisesIndexRouteImport } from './routes/hub.valises.index'
 import { Route as AdminScanIndexRouteImport } from './routes/admin.scan.index'
 import { Route as AdminDemandesIndexRouteImport } from './routes/admin.demandes.index'
 import { Route as HubValisesIdRouteImport } from './routes/hub.valises.$id'
 import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
 import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -106,6 +122,18 @@ const AdminDemandesRoute = AdminDemandesRouteImport.update({
   path: '/demandes',
   getParentRoute: () => AdminRoute,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const HubValisesIndexRoute = HubValisesIndexRouteImport.update({
   id: '/valises/',
   path: '/valises/',
@@ -136,11 +164,26 @@ const AdminDemandesIdRoute = AdminDemandesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AdminDemandesRoute,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/hub': typeof HubRouteWithChildren
+  '/mcp': typeof McpRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
@@ -153,6 +196,8 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/demandes/': typeof DemandesIndexRoute
   '/hub/': typeof HubIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
   '/hub/valises/$id': typeof HubValisesIdRoute
@@ -162,6 +207,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/mcp': typeof McpRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/demandes/$id': typeof DemandesIdRoute
@@ -172,6 +221,8 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/demandes': typeof DemandesIndexRoute
   '/hub': typeof HubIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
   '/hub/valises/$id': typeof HubValisesIdRoute
@@ -183,7 +234,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/hub': typeof HubRouteWithChildren
+  '/mcp': typeof McpRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
   '/admin/parcels': typeof AdminParcelsRoute
   '/admin/profile': typeof AdminProfileRoute
@@ -196,6 +251,8 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/demandes/': typeof DemandesIndexRoute
   '/hub/': typeof HubIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/demandes/$id': typeof AdminDemandesIdRoute
   '/admin/scan/match': typeof AdminScanMatchRoute
   '/hub/valises/$id': typeof HubValisesIdRoute
@@ -208,7 +265,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/auth'
     | '/hub'
+    | '/mcp'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
@@ -221,6 +282,8 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/demandes/'
     | '/hub/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
     | '/hub/valises/$id'
@@ -230,6 +293,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/mcp'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/parcels'
     | '/admin/profile'
     | '/demandes/$id'
@@ -240,6 +307,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/demandes'
     | '/hub'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
     | '/hub/valises/$id'
@@ -250,7 +319,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/auth'
     | '/hub'
+    | '/mcp'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
     | '/admin/parcels'
     | '/admin/profile'
@@ -263,6 +336,8 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/demandes/'
     | '/hub/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/admin/demandes/$id'
     | '/admin/scan/match'
     | '/hub/valises/$id'
@@ -274,18 +349,38 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
   HubRoute: typeof HubRouteWithChildren
+  McpRoute: typeof McpRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DemandesIdRoute: typeof DemandesIdRoute
   DemandesIndexRoute: typeof DemandesIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hub': {
       id: '/hub'
       path: '/hub'
       fullPath: '/hub'
       preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -386,6 +481,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDemandesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hub/valises/': {
       id: '/hub/valises/'
       path: '/valises'
@@ -427,6 +536,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/demandes/$id'
       preLoaderRoute: typeof AdminDemandesIdRouteImport
       parentRoute: typeof AdminDemandesRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -502,9 +625,16 @@ const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
   HubRoute: HubRouteWithChildren,
+  McpRoute: McpRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   DemandesIdRoute: DemandesIdRoute,
   DemandesIndexRoute: DemandesIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
