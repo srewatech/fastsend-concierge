@@ -132,7 +132,7 @@ function ConsentPage() {
               Permissions demandées
             </p>
             <ul className="mt-2 space-y-1 text-sm">
-              {scopes.map((s) => (
+              {scopes.map((s: string) => (
                 <li key={s} className="rounded-md bg-muted/40 px-2 py-1">
                   {s}
                 </li>
