@@ -1021,7 +1021,7 @@ function Methode() {
         </div>
 
         {/* ----- Timeline horizontale (desktop) ----- */}
-        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-12">
+        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-10">
           {/* Ligne centrale */}
           <div
             aria-hidden
