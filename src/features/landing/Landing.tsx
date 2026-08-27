@@ -1096,6 +1096,7 @@ export function Landing() {
       <Header />
       <main>
         <Hero />
+        <QuickBar />
         <Acces />
         <Services />
         <Tarifs />
