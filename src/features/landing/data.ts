@@ -74,11 +74,66 @@ export const OFFERS: Offer[] = [
   },
 ];
 
-export const PROCESS = [
-  { n: "01", title: "Vous déposez la demande", body: "Six étapes guidées, aucun jargon logistique." },
-  { n: "02", title: "Nous récupérons le colis", body: "Enlèvement à domicile ou dépôt dans l'un de nos entrepôts." },
-  { n: "03", title: "Pesée et confirmation", body: "Un agent pèse, contrôle et confirme le montant final." },
-  { n: "04", title: "Expédition et suivi", body: "Numéro de demande, statut colis par colis, jusqu'à la remise." },
+/* ------------------------- Pourquoi nous choisir -------------------------- */
+
+export interface WhyPoint {
+  icon: "clock" | "shield" | "heart" | "pin";
+  title: string;
+  body: string;
+}
+
+export const WHY_US: WhyPoint[] = [
+  {
+    icon: "clock",
+    title: "Vous gagnez du temps",
+    body: "Une demande en ligne suffit, nous prenons le relais de bout en bout.",
+  },
+  {
+    icon: "shield",
+    title: "Vous évitez les démarches complexes",
+    body: "Paiement, réception, expédition : tout est pris en charge.",
+  },
+  {
+    icon: "heart",
+    title: "Un accompagnement humain",
+    body: "Une équipe joignable avant, pendant et après votre envoi.",
+  },
+  {
+    icon: "pin",
+    title: "Un suivi jusqu'à destination",
+    body: "Vous savez où en est votre colis à chaque étape du trajet.",
+  },
+];
+
+/* --------------------------- Comment ça marche ---------------------------- */
+
+export interface ProcessTrack {
+  id: string;
+  title: string;
+  steps: { title: string; body: string }[];
+}
+
+export const PROCESS_TRACKS: ProcessTrack[] = [
+  {
+    id: "acheter",
+    title: "Pour acheter un produit",
+    steps: [
+      { title: "Envoyez le lien", body: "Collez l'adresse du produit qui vous intéresse." },
+      { title: "Recevez votre devis", body: "Notre équipe vous communique une estimation." },
+      { title: "Nous achetons", body: "Le produit est commandé et réceptionné en France." },
+      { title: "Vous recevez", body: "Votre commande est acheminée jusqu'au Congo." },
+    ],
+  },
+  {
+    id: "envoyer",
+    title: "Pour envoyer un colis entre la France et le Congo",
+    steps: [
+      { title: "Préparez votre colis", body: "Emballez soigneusement son contenu." },
+      { title: "Déposez-le en agence", body: "En France ou faites-le enlever à domicile." },
+      { title: "Nous expédions", body: "Express ou standard, selon votre choix." },
+      { title: "Le destinataire retire", body: "Il est prévenu dès l'arrivée du colis." },
+    ],
+  },
 ];
 
 export const PROOF = [
