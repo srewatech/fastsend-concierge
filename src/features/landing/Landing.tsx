@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
+import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
