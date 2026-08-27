@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
+import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -946,25 +946,59 @@ function Pourquoi() {
 /* --------------------------------- Méthode -------------------------------- */
 
 function Methode() {
-  const [active, setActive] = useState(JOURNEY_PHASES[0].id);
+  const [open, setOpen] = useState<string | null>(null);
 
-  useEffect(() => {
-    const nodes = JOURNEY_PHASES.map((p) => document.getElementById(`phase-${p.id}`)).filter(
-      (n): n is HTMLElement => Boolean(n),
+  const cardBody = (p: (typeof JOURNEY_PHASES)[number]) => {
+    const isOpen = open === p.id;
+    return (
+      <div className="rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgb(0_0_0/0.45)]">
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+            {p.actor}
+          </span>
+        </div>
+        <h3 className="mt-2.5 font-display text-[17px] font-bold leading-tight tracking-tight">
+          {p.title}
+        </h3>
+        <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{p.lead}</p>
+
+        <button
+          type="button"
+          onClick={() => setOpen(isOpen ? null : p.id)}
+          aria-expanded={isOpen}
+          className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-primary transition-colors hover:text-foreground"
+        >
+          {isOpen ? "Réduire" : "En savoir plus"}
+          <ChevronDown
+            size={14}
+            className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+
+        <div
+          className={`grid transition-all duration-300 ${
+            isOpen ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <ul className="space-y-2 border-t border-dashed border-border pt-3">
+              {p.points.map((pt) => (
+                <li key={pt} className="flex items-start gap-2.5 text-[12.5px] leading-relaxed">
+                  <Check size={14} className="mt-0.5 shrink-0 text-primary" />
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+            {p.note && (
+              <p className="mt-3 rounded-lg bg-secondary/70 px-3 py-2 text-[11.5px] leading-relaxed text-muted-foreground">
+                {p.note}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     );
-    if (!nodes.length) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        if (visible) setActive(visible.target.id.replace("phase-", ""));
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
-    );
-    nodes.forEach((n) => obs.observe(n));
-    return () => obs.disconnect();
-  }, []);
+  };
 
   return (
     <section id="methode" className="relative overflow-hidden bg-primary text-primary-foreground">
@@ -972,8 +1006,8 @@ function Methode() {
         aria-hidden
         className="absolute inset-x-0 -top-px h-16 bg-background [clip-path:ellipse(75%_100%_at_50%_0%)]"
       />
-      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-24 md:pb-24 md:pt-32">
-        <div className="max-w-2xl">
+      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-24 md:pb-20 md:pt-32">
+        <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]">
             03 — Le flux réel
           </span>
@@ -986,96 +1020,80 @@ function Methode() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr] lg:gap-14">
-          {/* Rail de progression */}
-          <nav aria-label="Étapes du parcours" className="hidden lg:block">
-            <ol className="sticky top-28 space-y-1">
-              {JOURNEY_PHASES.map((p) => {
-                const on = p.id === active;
-                return (
-                  <li key={p.id}>
-                    <a
-                      href={`#phase-${p.id}`}
-                      className={`flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors ${
-                        on ? "bg-primary-foreground/15" : "hover:bg-primary-foreground/10"
-                      }`}
-                    >
-                      <span
-                        className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full font-mono text-[10px] font-bold transition-colors ${
-                          on
-                            ? "bg-primary-foreground text-primary"
-                            : "bg-primary-foreground/20 text-primary-foreground"
-                        }`}
-                      >
-                        {p.step}
-                      </span>
-                      <span
-                        className={`text-[13px] font-semibold leading-snug ${
-                          on ? "" : "text-primary-foreground/70"
-                        }`}
-                      >
-                        {p.title}
-                      </span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
-
-          {/* Phases */}
-          <ol className="space-y-5">
-            {JOURNEY_PHASES.map((p, i) => (
+        {/* ----- Timeline horizontale (desktop) ----- */}
+        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-5">
+          {/* Ligne centrale */}
+          <div
+            aria-hidden
+            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-primary-foreground/30"
+          />
+          {JOURNEY_PHASES.map((p, i) => {
+            const above = i % 2 === 0;
+            return (
               <li
                 key={p.id}
                 id={`phase-${p.id}`}
-                className="scroll-mt-28 rounded-2xl bg-card p-6 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.6)] md:p-8"
+                className="relative grid scroll-mt-28 grid-rows-[1fr_auto_1fr]"
               >
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground font-mono text-[12px] font-bold text-background">
+                {/* Slot haut */}
+                <div className={`flex flex-col ${above ? "justify-end pb-6" : ""}`}>
+                  {above && cardBody(p)}
+                </div>
+
+                {/* Bulle sur la ligne */}
+                <div className="relative flex items-center justify-center py-1">
+                  {above ? (
+                    <span
+                      aria-hidden
+                      className="absolute bottom-full h-6 w-px bg-primary-foreground/30"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="absolute top-full h-6 w-px bg-primary-foreground/30"
+                    />
+                  )}
+                  <span className="relative grid h-11 w-11 place-items-center rounded-full bg-primary-foreground font-mono text-[13px] font-bold text-primary ring-4 ring-primary transition-transform duration-300 hover:scale-110">
                     {p.step}
                   </span>
-                  <span className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
-                    {p.actor}
-                  </span>
-                  {i === JOURNEY_PHASES.length - 1 && (
-                    <span className="rounded-full bg-secondary px-3 py-1 text-[11px] font-semibold text-muted-foreground">
-                      Fin du parcours
-                    </span>
-                  )}
                 </div>
-                <h3 className="mt-4 font-display text-xl font-bold tracking-tight md:text-2xl">
-                  {p.title}
-                </h3>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-muted-foreground">{p.lead}</p>
-                <ul className="mt-5 space-y-2.5">
-                  {p.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-3 text-[13.5px] leading-relaxed">
-                      <Check size={16} className="mt-0.5 shrink-0 text-primary" />
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-                {p.note && (
-                  <p className="mt-5 rounded-xl border border-dashed border-border bg-secondary/60 px-4 py-3 text-[12.5px] leading-relaxed text-muted-foreground">
-                    {p.note}
-                  </p>
-                )}
-              </li>
-            ))}
-          </ol>
-        </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-3">
+                {/* Slot bas */}
+                <div className={`flex flex-col ${above ? "" : "justify-start pt-6"}`}>
+                  {!above && cardBody(p)}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+
+        {/* ----- Timeline verticale (mobile) ----- */}
+        <ol className="relative mt-12 space-y-6 pl-10 md:hidden">
+          <div
+            aria-hidden
+            className="absolute bottom-2 left-[21px] top-2 w-px bg-primary-foreground/30"
+          />
+          {JOURNEY_PHASES.map((p) => (
+            <li key={p.id} id={`phase-${p.id}`} className="relative scroll-mt-28">
+              <span className="absolute -left-10 top-4 grid h-9 w-9 place-items-center rounded-full bg-primary-foreground font-mono text-[12px] font-bold text-primary ring-4 ring-primary">
+                {p.step}
+              </span>
+              {cardBody(p)}
+            </li>
+          ))}
+        </ol>
+
+        {/* ----- Appels à l'action ----- */}
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/demande"
-            className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-5 py-3 text-[13px] font-semibold text-primary transition-transform hover:translate-x-0.5"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-6 py-3 text-[13px] font-semibold text-primary shadow-lg transition-transform hover:-translate-y-0.5"
           >
             Créer ma demande <ArrowRight size={15} />
           </Link>
           <Link
             to="/demandes"
-            className="rounded-full border border-primary-foreground/40 px-5 py-3 text-[13px] font-semibold transition-colors hover:bg-primary-foreground/10"
+            className="rounded-full border border-primary-foreground/40 px-6 py-3 text-[13px] font-semibold transition-colors hover:bg-primary-foreground/10"
           >
             Suivre une demande existante
           </Link>
