@@ -19,6 +19,8 @@ import {
   type OptionId,
 } from "./data";
 import heroImg from "@/assets/hero-courier.jpg";
+import heroShoppingImg from "@/assets/hero-shopping.jpg";
+import heroFretImg from "@/assets/hero-fret.jpg";
 import teamImg from "@/assets/team-agency.jpg";
 
 const NAV = [
