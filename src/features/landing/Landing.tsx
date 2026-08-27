@@ -1,26 +1,36 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X } from "lucide-react";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
+  ACCESS_CARDS,
   CORRIDORS,
   OFFERS,
   OPTIONS,
   PROCESS,
   PROOF,
+  REVIEW_SCORE,
+  SECONDARY_ACCESS,
+  TARIF_MODES,
+  TEAM_POINTS,
   TESTIMONIALS,
   volumetricWeight,
   type OptionId,
 } from "./data";
 import heroImg from "@/assets/hero-courier.jpg";
+import teamImg from "@/assets/team-agency.jpg";
 
 const NAV = [
+  { href: "#acces", label: "Nos accès" },
   { href: "#services", label: "Services" },
   { href: "#tarifs", label: "Tarifs" },
-  { href: "#simulateur", label: "Estimation" },
-  { href: "#offres", label: "Offres" },
-  { href: "#methode", label: "Méthode" },
+  { href: "#equipe", label: "L'équipe" },
+  { href: "#avis", label: "Avis" },
 ];
+
+const ACCESS_ICONS = { acheter: ShoppingBag, envoyer: Send, retirer: Truck } as const;
+
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
