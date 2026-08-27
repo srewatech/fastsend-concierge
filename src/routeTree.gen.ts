@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as DemandeRouteImport } from './routes/demande'
@@ -38,6 +39,11 @@ import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
+const TarifsRoute = TarifsRouteImport.update({
+  id: '/tarifs',
+  path: '/tarifs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/demande': typeof DemandeRoute
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
+  '/tarifs': typeof TarifsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/demande': typeof DemandeRoute
   '/mcp': typeof McpRoute
+  '/tarifs': typeof TarifsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/parcels': typeof AdminParcelsRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/demande': typeof DemandeRoute
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
+  '/tarifs': typeof TarifsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
@@ -278,6 +287,7 @@ export interface FileRouteTypes {
     | '/demande'
     | '/hub'
     | '/mcp'
+    | '/tarifs'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/demande'
     | '/mcp'
+    | '/tarifs'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/parcels'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/demande'
     | '/hub'
     | '/mcp'
+    | '/tarifs'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   DemandeRoute: typeof DemandeRoute
   HubRoute: typeof HubRouteWithChildren
   McpRoute: typeof McpRoute
+  TarifsRoute: typeof TarifsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DemandesIdRoute: typeof DemandesIdRoute
@@ -375,6 +388,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tarifs': {
+      id: '/tarifs'
+      path: '/tarifs'
+      fullPath: '/tarifs'
+      preLoaderRoute: typeof TarifsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
@@ -649,6 +669,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemandeRoute: DemandeRoute,
   HubRoute: HubRouteWithChildren,
   McpRoute: McpRoute,
+  TarifsRoute: TarifsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,

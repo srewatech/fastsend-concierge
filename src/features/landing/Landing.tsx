@@ -76,7 +76,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="#top" className="flex items-center gap-2">
+        <a href="/#top" className="flex items-center gap-2">
           <span className="grid h-7 w-7 place-items-center rounded-md bg-primary font-mono text-[11px] font-bold text-primary-foreground">
             FS
           </span>
@@ -509,7 +509,7 @@ function Services() {
 
 /* --------------------------------- Tarifs --------------------------------- */
 
-function Tarifs() {
+export function Tarifs() {
   const [mode, setMode] = useState<"standard" | "express">("standard");
   const active = TARIF_MODES.find((m) => m.id === mode)!;
 
@@ -628,7 +628,7 @@ function Tarifs() {
 
 const SIM_SERVICES: ServiceId[] = ["pickup", "delivery", "shop_online", "shop_store", "air_freight"];
 
-function Simulateur() {
+export function Simulateur() {
   const [serviceId, setServiceId] = useState<ServiceId>("delivery");
   const [corridorId, setCorridorId] = useState(CORRIDORS[0]!.id);
   const [weight, setWeight] = useState("8");
@@ -1199,7 +1199,7 @@ function Avis() {
 
 /* ---------------------------------- CTA ----------------------------------- */
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="border-t border-border bg-foreground text-background">
       <div className="mx-auto max-w-6xl px-5 py-14">
@@ -1257,7 +1257,7 @@ function Footer() {
 
 /* ----------------------------- Bouton flottant ---------------------------- */
 
-function FloatingHelp() {
+export function FloatingHelp() {
   const [open, setOpen] = useState(false);
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
@@ -1316,8 +1316,6 @@ export function Landing() {
         <Pourquoi />
         <Methode />
         <Services />
-        <Tarifs />
-        <Simulateur />
         <Offres />
         <Equipe />
         <Avis />
