@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, CalendarCheck, PackageOpen, ArrowRight } from "lucide-react";
+import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin } from "lucide-react";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -8,8 +8,9 @@ import {
   CORRIDORS,
   OFFERS,
   OPTIONS,
-  PROCESS,
+  PROCESS_TRACKS,
   PROOF,
+  WHY_US,
   REVIEW_SCORE,
   SECONDARY_ACCESS,
   TARIF_MODES,
