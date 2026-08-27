@@ -1205,12 +1205,12 @@ export function Landing() {
         <Hero />
         <QuickBar />
         <Acces />
+        <Pourquoi />
+        <Methode />
         <Services />
         <Tarifs />
         <Simulateur />
         <Offres />
-        <Pourquoi />
-        <Methode />
         <Equipe />
         <Avis />
       </main>
