@@ -649,7 +649,9 @@ function Footer() {
                 <Link to="/hub">Hub entrepôt</Link>
               </li>
               <li>
-                <Link to="/auth">Connexion</Link>
+                <Link to="/auth" search={{ next: "/" }}>
+                  Connexion
+                </Link>
               </li>
             </ul>
           </div>
