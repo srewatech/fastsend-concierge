@@ -317,45 +317,82 @@ function Hero() {
   );
 }
 
+/* ------------------------- Barre d'accès rapide -------------------------- */
+
+const QUICK_ACTIONS = [
+  { label: "Acheter en Europe", icon: ShoppingBag, service: "shop-store" },
+  { label: "Envoyer un colis", icon: Send, service: "delivery" },
+  { label: "Retirer un colis", icon: PackageOpen, service: "pickup" },
+  { label: "Prendre RDV", icon: CalendarCheck, service: "elite-pro", accent: true },
+] as const;
+
+function QuickBar() {
+  return (
+    <div className="relative z-10 mx-auto -mt-8 max-w-4xl px-5">
+      <nav
+        aria-label="Accès rapide"
+        className="flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-card p-1.5 shadow-[0_18px_40px_-24px_hsl(216_88%_45%/0.45)]"
+      >
+        {QUICK_ACTIONS.map((a) => (
+          <Link
+            key={a.label}
+            to="/demande"
+            search={{ service: a.service }}
+            className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors ${
+              a.accent
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "text-foreground hover:bg-secondary"
+            }`}
+          >
+            <a.icon size={15} strokeWidth={2.2} />
+            <span className="hidden sm:inline">{a.label}</span>
+            <span className="sm:hidden">{a.label.split(" ")[0]}</span>
+          </Link>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
 /* --------------------------------- Accès ---------------------------------- */
 
 function Acces() {
   return (
-    <section id="acces" className="border-b border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
-        <div className="max-w-2xl">
-          <Label>Par où commencer</Label>
-          <h2 className="mt-3 text-3xl font-semibold leading-[1.1] tracking-tight md:text-[2.4rem]">
+    <section id="acces" className="border-b border-border bg-primary/[0.045]">
+      <div className="mx-auto max-w-6xl px-5 pb-16 pt-14 md:pb-24 md:pt-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
             Comment pouvons-nous vous aider aujourd'hui ?
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-            Trois portes d'entrée, un même parcours de demande. Choisissez la vôtre.
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+            Choisissez le parcours qui correspond à votre besoin — un même parcours de demande derrière.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {ACCESS_CARDS.map((c) => {
             const Icon = ACCESS_ICONS[c.id as keyof typeof ACCESS_ICONS] ?? Send;
             return (
               <Link
                 key={c.id}
                 to="/demande"
-                className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-[0_12px_30px_-18px_hsl(216_88%_45%/0.6)]"
+                className="group flex flex-col rounded-2xl border border-border bg-card p-7 shadow-[0_10px_30px_-22px_hsl(216_88%_45%/0.4)] transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_44px_-24px_hsl(216_88%_45%/0.55)]"
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-                  <Icon size={18} />
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Icon size={20} strokeWidth={2.1} />
                 </span>
-                <h3 className="mt-5 text-lg font-semibold tracking-tight">{c.title}</h3>
+                <h3 className="mt-5 font-display text-xl font-bold tracking-tight">{c.title}</h3>
                 <p className="mt-2 flex-1 text-[13px] leading-relaxed text-muted-foreground">{c.body}</p>
-                <span className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-[13px] font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
-                  {c.cta} <span aria-hidden>→</span>
+                <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold text-primary">
+                  {c.cta}
+                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             );
           })}
         </div>
 
-        <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+        <p className="mt-12 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
           Nos autres services
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -363,7 +400,7 @@ function Acces() {
             <a
               key={s.id}
               href="#services"
-              className="rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-card/70"
+              className="rounded-xl border border-border bg-card px-4 py-3.5 transition-colors hover:border-primary/40 hover:bg-card/70"
             >
               <span className="block text-[13px] font-semibold">{s.title}</span>
               <span className="mt-0.5 block text-[12px] text-muted-foreground">{s.body}</span>
