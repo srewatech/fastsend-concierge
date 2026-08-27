@@ -416,28 +416,45 @@ function Acces() {
 /* -------------------------------- Services -------------------------------- */
 
 
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  pickup: PackageOpen,
+  delivery: Send,
+  shop_store: Store,
+  shop_online: ShoppingBag,
+  air_freight: Plane,
+  elite_pro: Building2,
+};
+
 function Services() {
   const [audience, setAudience] = useState<"particulier" | "entreprise">("particulier");
   const list = useMemo(() => SERVICES.filter((s) => s.audience.includes(audience)), [audience]);
 
   return (
-    <section id="services" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-      <SectionHead
-        index="01"
-        label="Catalogue"
-        title="Six services, un seul parcours"
-        intro="Le catalogue s'adapte à votre profil. Chaque service ouvre un formulaire dédié — pas de champs inutiles."
-        action={
-          <div className="inline-flex rounded-md border border-border p-1">
+    <section id="services" className="bg-primary/[0.045]">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            01 — Catalogue
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+            Six services, <span className="text-primary">un seul parcours</span>
+          </h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+            Le catalogue s'adapte à votre profil. Chaque service ouvre un formulaire dédié — pas de
+            champs inutiles.
+          </p>
+
+          <div className="mt-7 inline-flex rounded-full border border-border bg-card p-1 shadow-sm">
             {(["particulier", "entreprise"] as const).map((a) => (
               <button
                 key={a}
                 type="button"
                 onClick={() => setAudience(a)}
+                aria-pressed={audience === a}
                 className={
-                  "rounded px-4 py-2 text-[12px] font-semibold capitalize transition-colors " +
+                  "rounded-full px-5 py-2 text-[12.5px] font-semibold capitalize transition-colors " +
                   (audience === a
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground shadow"
                     : "text-muted-foreground hover:text-foreground")
                 }
               >
@@ -445,32 +462,46 @@ function Services() {
               </button>
             ))}
           </div>
-        }
-      />
+        </div>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {list.map((s) => (
-          <Link
-            key={s.id}
-            to="/demande"
-            className="group flex flex-col rounded-lg border border-border bg-card p-6 transition-colors hover:border-primary/40 hover:bg-secondary"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{s.code}</span>
-              {s.badge ? (
-                <span className="rounded bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-bold text-primary">
-                  {s.badge}
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((s, i) => {
+            const Icon = SERVICE_ICONS[s.id] ?? Package;
+            return (
+              <Link
+                key={s.id}
+                to="/demande"
+                search={{ service: s.id }}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-7 shadow-[0_10px_30px_-22px_hsl(216_88%_45%/0.4)] transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_44px_-24px_hsl(216_88%_45%/0.55)]"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Icon size={20} strokeWidth={2.1} />
+                  </span>
+                  <span className="flex items-center gap-2">
+                    {s.badge ? (
+                      <span className="rounded-full bg-primary px-2.5 py-0.5 font-mono text-[10px] font-bold text-primary-foreground">
+                        {s.badge}
+                      </span>
+                    ) : null}
+                    <span className="font-display text-2xl font-extrabold text-foreground/10">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </span>
+                </div>
+                <h3 className="mt-5 font-display text-xl font-bold tracking-tight">{s.name}</h3>
+                <p className="mt-1 text-[13px] font-semibold text-primary">{s.tagline}</p>
+                <p className="mt-3 flex-1 text-[13px] leading-relaxed text-muted-foreground">
+                  {s.description}
+                </p>
+                <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold text-primary">
+                  Commencer
+                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </span>
-              ) : null}
-            </div>
-            <h3 className="mt-6 text-lg font-semibold tracking-tight">{s.name}</h3>
-            <p className="mt-1 text-[13px] font-medium text-primary">{s.tagline}</p>
-            <p className="mt-3 flex-1 text-[13px] leading-relaxed text-muted-foreground">{s.description}</p>
-            <span className="mt-6 text-[12px] font-semibold text-foreground group-hover:text-primary">
-              Commencer →
-            </span>
-          </Link>
-        ))}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
