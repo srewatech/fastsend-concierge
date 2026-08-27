@@ -107,3 +107,91 @@ export const TESTIMONIALS = [
     role: "Importateur, Lyon",
   },
 ];
+
+/* ------------------------- Accès rapides (landing) ------------------------ */
+
+export interface AccessCard {
+  id: string;
+  title: string;
+  body: string;
+  cta: string;
+  serviceId: ServiceId;
+}
+
+export const ACCESS_CARDS: AccessCard[] = [
+  {
+    id: "acheter",
+    title: "Acheter en Europe",
+    body: "Vous voulez un produit vu sur Amazon, Shein, une boutique de Paris ou de Bruxelles ? Nous achetons pour vous.",
+    cta: "Commander un achat",
+    serviceId: "shop_online",
+  },
+  {
+    id: "envoyer",
+    title: "Envoyer un colis",
+    body: "Déposez ou faites enlever votre colis en France et en Belgique, nous l'acheminons jusqu'au Congo.",
+    cta: "Envoyer un colis",
+    serviceId: "delivery",
+  },
+  {
+    id: "retirer",
+    title: "Faire enlever un colis",
+    body: "Un coursier passe à l'adresse de votre choix, récupère le carton et le dépose à l'entrepôt.",
+    cta: "Demander un enlèvement",
+    serviceId: "pickup",
+  },
+];
+
+export const SECONDARY_ACCESS = [
+  { id: "groupage", title: "Groupage 30 kg+", body: "Mutualisez vos envois, le kilo baisse." },
+  { id: "fret", title: "Fret aérien express", body: "Départ prioritaire sous 48 h." },
+  { id: "pro", title: "Compte Elite Pro", body: "Facturation mensuelle pour les entreprises." },
+  { id: "parrainage", title: "Programme de parrainage", body: "Un code, une remise pour vous deux." },
+];
+
+/* ---------------------------------- Équipe -------------------------------- */
+
+export const TEAM_POINTS = [
+  "Un interlocuteur nommé sur chaque demande, joignable par téléphone.",
+  "Des agents en entrepôt à Paris, Bruxelles, Brazzaville et Pointe-Noire.",
+  "Un contrôle photo à la réception et à la remise de chaque carton.",
+];
+
+/* ----------------------------------- Avis --------------------------------- */
+
+export const REVIEW_SCORE = { score: "4,8", count: 286, source: "Avis clients vérifiés" };
+
+/* -------------------------- Tarifs : modes détaillés ---------------------- */
+
+export interface TarifMode {
+  id: "standard" | "express";
+  label: string;
+  hint: string;
+  /** Multiplicateur appliqué au prix au kilo du corridor. */
+  factor: number;
+  /** Délai indicatif appliqué. */
+  speed: string;
+  minWeight: string;
+  includes: string[];
+}
+
+export const TARIF_MODES: TarifMode[] = [
+  {
+    id: "standard",
+    label: "Groupage standard",
+    hint: "Départ hebdomadaire, le meilleur rapport prix / délai.",
+    factor: 1,
+    speed: "délai grille",
+    minWeight: "1 kg",
+    includes: ["Suivi carton par carton", "Stockage 7 jours offert", "Remise en entrepôt destination"],
+  },
+  {
+    id: "express",
+    label: "Fret aérien express",
+    hint: "Départ prioritaire sur le premier vol disponible.",
+    factor: 1.45,
+    speed: "48 à 72 h",
+    minWeight: "0,5 kg",
+    includes: ["Départ prioritaire", "Assurance incluse jusqu'à 300 €", "Livraison à domicile possible"],
+  },
+];
