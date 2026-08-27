@@ -953,5 +953,3 @@ export function Landing() {
     </div>
   );
 }
-
-}
