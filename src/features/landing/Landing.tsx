@@ -1006,7 +1006,7 @@ function Methode() {
         aria-hidden
         className="absolute inset-x-0 -top-px h-16 bg-background [clip-path:ellipse(75%_100%_at_50%_0%)]"
       />
-      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-24 md:pb-20 md:pt-32">
+      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-24 md:pb-20 md:pt-32">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]">
             03 — Le flux réel
@@ -1021,7 +1021,7 @@ function Methode() {
         </div>
 
         {/* ----- Timeline horizontale (desktop) ----- */}
-        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-10">
+        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-12">
           {/* Ligne centrale */}
           <div
             aria-hidden
