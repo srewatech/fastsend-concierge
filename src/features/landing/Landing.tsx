@@ -951,22 +951,22 @@ function Methode() {
   const cardBody = (p: (typeof JOURNEY_PHASES)[number]) => {
     const isOpen = open === p.id;
     return (
-      <div className="rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgb(0_0_0/0.45)]">
+      <div className="rounded-3xl border border-primary-foreground/15 bg-primary-foreground p-6 text-primary shadow-[0_18px_45px_-28px_rgba(0_0_0/0.35)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary-foreground/30 hover:shadow-[0_28px_60px_-32px_rgba(0_0_0/0.45)] md:p-7">
         <div className="flex items-center gap-2">
-          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
             {p.actor}
           </span>
         </div>
-        <h3 className="mt-2.5 font-display text-[17px] font-bold leading-tight tracking-tight">
+        <h3 className="mt-3 font-display text-lg font-bold leading-snug tracking-tight">
           {p.title}
         </h3>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{p.lead}</p>
+        <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{p.lead}</p>
 
         <button
           type="button"
           onClick={() => setOpen(isOpen ? null : p.id)}
           aria-expanded={isOpen}
-          className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-primary transition-colors hover:text-foreground"
+          className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary transition-colors hover:text-foreground"
         >
           {isOpen ? "Réduire" : "En savoir plus"}
           <ChevronDown
@@ -983,14 +983,14 @@ function Methode() {
           <div className="overflow-hidden">
             <ul className="space-y-2 border-t border-dashed border-border pt-3">
               {p.points.map((pt) => (
-                <li key={pt} className="flex items-start gap-2.5 text-[12.5px] leading-relaxed">
+                <li key={pt} className="flex items-start gap-2.5 text-[13px] leading-relaxed">
                   <Check size={14} className="mt-0.5 shrink-0 text-primary" />
                   <span>{pt}</span>
                 </li>
               ))}
             </ul>
             {p.note && (
-              <p className="mt-3 rounded-lg bg-secondary/70 px-3 py-2 text-[11.5px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 rounded-lg bg-secondary/70 px-3 py-2 text-[12px] leading-relaxed text-muted-foreground">
                 {p.note}
               </p>
             )}
@@ -1021,11 +1021,11 @@ function Methode() {
         </div>
 
         {/* ----- Timeline horizontale (desktop) ----- */}
-        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-5">
+        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-10">
           {/* Ligne centrale */}
           <div
             aria-hidden
-            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-primary-foreground/30"
+            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-primary-foreground/25"
           />
           {JOURNEY_PHASES.map((p, i) => {
             const above = i % 2 === 0;
@@ -1068,14 +1068,14 @@ function Methode() {
         </ol>
 
         {/* ----- Timeline verticale (mobile) ----- */}
-        <ol className="relative mt-12 space-y-6 pl-10 md:hidden">
+        <ol className="relative mt-12 space-y-8 pl-12 md:hidden">
           <div
             aria-hidden
-            className="absolute bottom-2 left-[21px] top-2 w-px bg-primary-foreground/30"
+            className="absolute bottom-3 left-[25px] top-3 w-px bg-primary-foreground/25"
           />
           {JOURNEY_PHASES.map((p) => (
             <li key={p.id} id={`phase-${p.id}`} className="relative scroll-mt-28">
-              <span className="absolute -left-10 top-4 grid h-9 w-9 place-items-center rounded-full bg-primary-foreground font-mono text-[12px] font-bold text-primary ring-4 ring-primary">
+              <span className="absolute -left-12 top-4 grid h-10 w-10 place-items-center rounded-full bg-primary-foreground font-mono text-[12px] font-bold text-primary ring-4 ring-primary">
                 {p.step}
               </span>
               {cardBody(p)}
