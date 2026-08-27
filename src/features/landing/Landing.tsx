@@ -870,21 +870,96 @@ function Offres() {
   );
 }
 
+/* --------------------------- Pourquoi nous choisir ------------------------- */
+
+const WHY_ICONS = { clock: Clock, shield: ShieldCheck, heart: MessageCircle, pin: MapPin } as const;
+
+function Pourquoi() {
+  return (
+    <section id="pourquoi" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-2xl text-center">
+        <Label>Pourquoi nous</Label>
+        <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+          Pourquoi choisir FastSends ?
+        </h2>
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+          Comme des milliers de clients, confiez vos achats et vos colis entre l'Europe et le Congo à une
+          équipe qui répond.
+        </p>
+      </div>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {WHY_US.map((w) => {
+          const Icon = WHY_ICONS[w.icon];
+          return (
+            <article
+              key={w.title}
+              className="group rounded-2xl border border-border bg-card p-6 shadow-[0_14px_36px_-30px_hsl(216_88%_45%/0.6)] transition-all hover:-translate-y-1 hover:border-primary/40"
+            >
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <Icon size={20} />
+              </span>
+              <h3 className="mt-5 font-display text-[17px] font-bold leading-snug tracking-tight">
+                {w.title}
+              </h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{w.body}</p>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------------- Méthode -------------------------------- */
 
 function Methode() {
   return (
-    <section id="methode" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-      <SectionHead index="05" label="Méthode" title="Comment ça marche" />
-      <ol className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4">
-        {PROCESS.map((p) => (
-          <li key={p.n} className="bg-card p-6">
-            <span className="font-mono text-[11px] text-primary">{p.n}</span>
-            <h3 className="mt-4 text-base font-semibold tracking-tight">{p.title}</h3>
-            <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{p.body}</p>
-          </li>
-        ))}
-      </ol>
+    <section id="methode" className="relative overflow-hidden bg-primary text-primary-foreground">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 -top-px h-16 bg-background [clip-path:ellipse(75%_100%_at_50%_0%)]"
+      />
+      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-24 md:pb-24 md:pt-32">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+            Comment ça marche ?
+          </h2>
+          <p className="mt-3 text-sm text-primary-foreground/80 md:text-base">
+            Deux parcours, la même simplicité.
+          </p>
+        </div>
+
+        <div className="mt-12 space-y-10">
+          {PROCESS_TRACKS.map((track) => (
+            <div key={track.id}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="font-display text-lg font-bold tracking-tight md:text-xl">{track.title}</h3>
+                <Link
+                  to="/demande"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-4 py-2 text-[12px] font-semibold text-primary transition-transform hover:translate-x-0.5"
+                >
+                  Voir le détail <ArrowRight size={14} />
+                </Link>
+              </div>
+              <ol className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {track.steps.map((s, i) => (
+                  <li
+                    key={s.title}
+                    className="rounded-2xl bg-card p-5 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.6)]"
+                  >
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-foreground font-mono text-[11px] font-bold text-background">
+                      {i + 1}
+                    </span>
+                    <h4 className="mt-4 font-display text-[15px] font-bold tracking-tight">{s.title}</h4>
+                    <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{s.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
