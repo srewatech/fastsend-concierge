@@ -1109,47 +1109,71 @@ function Methode() {
 function Equipe() {
   return (
     <section id="equipe" className="border-y border-border bg-secondary/50">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-2 md:items-center md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-2 md:items-center md:py-24">
         <div>
           <Label>L'équipe</Label>
-          <h2 className="mt-3 text-3xl font-semibold leading-[1.1] tracking-tight md:text-[2.4rem]">
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.6rem]">
             L'équipe FastSends à vos côtés
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
             Derrière chaque demande, des agents en entrepôt qui pèsent, contrôlent et confirment. Pas un
             algorithme : des personnes que vous pouvez appeler.
           </p>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-7 space-y-3">
             {TEAM_POINTS.map((p) => (
-              <li key={p} className="flex items-start gap-3 text-[14px]">
-                <Check size={16} className="mt-0.5 shrink-0 text-primary" />
-                <span>{p}</span>
+              <li
+                key={p}
+                className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-[14px] shadow-[0_14px_36px_-30px_hsl(216_88%_45%/0.6)] transition-all hover:-translate-y-0.5 hover:border-primary/40"
+              >
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                  <Check size={14} />
+                </span>
+                <span className="pt-1 leading-relaxed">{p}</span>
               </li>
             ))}
           </ul>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="tel:+33100000000"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[13px] font-semibold text-primary-foreground shadow-[0_16px_36px_-18px_hsl(216_88%_45%/0.9)] transition-all hover:-translate-y-0.5 hover:bg-primary/90"
             >
               <Phone size={15} /> Nous contacter
             </a>
             <Link
               to="/demandes"
-              className="rounded-md border border-border bg-card px-5 py-3 text-[13px] font-semibold transition-colors hover:bg-secondary"
+              className="rounded-full border border-border bg-card px-6 py-3 text-[13px] font-semibold transition-colors hover:border-primary/40 hover:text-primary"
             >
               Suivre un colis
             </Link>
           </div>
         </div>
-        <img
-          src={teamImg}
-          alt="Agents FastSends remettant un colis à une cliente au comptoir de l'agence"
-          width={1200}
-          height={1000}
-          loading="lazy"
-          className="aspect-[6/5] w-full rounded-xl border border-border object-cover"
-        />
+        <div className="relative">
+          <div
+            aria-hidden
+            className="absolute -inset-4 rounded-[2rem] bg-primary/5 [mask-image:radial-gradient(70%_70%_at_50%_50%,black,transparent)]"
+          />
+          <img
+            src={teamImg}
+            alt="Agents FastSends remettant un colis à une cliente au comptoir de l'agence"
+            width={1200}
+            height={1000}
+            loading="lazy"
+            className="relative aspect-[6/5] w-full rounded-3xl border border-border object-cover shadow-[0_28px_60px_-32px_hsl(216_88%_45%/0.45)]"
+          />
+          <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-[0_20px_45px_-24px_hsl(216_88%_45%/0.5)]">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+              <ShieldCheck size={18} />
+            </span>
+            <span>
+              <span className="block font-display text-sm font-bold tracking-tight">
+                Contrôle humain
+              </span>
+              <span className="block text-[12px] text-muted-foreground">
+                Pesée et vérification par nos agents
+              </span>
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1160,37 +1184,62 @@ function Equipe() {
 function Avis() {
   return (
     <section id="avis" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-      <SectionHead index="06" label="Avis" title="Ils nous font confiance" />
-
-      <div className="mt-8 inline-flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4">
-        <span className="text-3xl font-semibold tracking-tight">{REVIEW_SCORE.score}</span>
-        <span>
-          <span className="flex gap-0.5 text-primary">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={13} fill="currentColor" />
-            ))}
+      <div className="mx-auto max-w-2xl text-center">
+        <Label>Avis</Label>
+        <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+          Ils nous font confiance
+        </h2>
+        <div className="mt-6 inline-flex items-center gap-4 rounded-full border border-border bg-card px-6 py-3 shadow-[0_14px_36px_-30px_hsl(216_88%_45%/0.6)]">
+          <span className="font-display text-2xl font-bold tracking-tight text-primary">
+            {REVIEW_SCORE.score}
           </span>
-          <span className="mt-1 block text-[12px] text-muted-foreground">
-            {REVIEW_SCORE.count} {REVIEW_SCORE.source.toLowerCase()}
-          </span>
-        </span>
-      </div>
-
-      <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
-        {TESTIMONIALS.map((t) => (
-          <figure key={t.name} className="bg-card p-6">
+          <span className="h-8 w-px bg-border" aria-hidden />
+          <span className="text-left">
             <span className="flex gap-0.5 text-primary">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={12} fill="currentColor" />
+                <Star key={i} size={13} fill="currentColor" />
               ))}
             </span>
-            <blockquote className="mt-4 text-[14px] leading-relaxed">« {t.quote} »</blockquote>
-            <figcaption className="mt-5 border-t border-border pt-4 text-[12px]">
-              <span className="font-semibold">{t.name}</span>
-              <span className="block text-muted-foreground">{t.role}</span>
-            </figcaption>
-          </figure>
-        ))}
+            <span className="mt-0.5 block text-[12px] text-muted-foreground">
+              {REVIEW_SCORE.count} {REVIEW_SCORE.source.toLowerCase()}
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-10 grid gap-4 md:grid-cols-3">
+        {TESTIMONIALS.map((t) => {
+          const initials = t.name
+            .split(/\s+/)
+            .map((w) => w[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          return (
+            <figure
+              key={t.name}
+              className="group flex flex-col rounded-3xl border border-border bg-card p-7 shadow-[0_14px_36px_-30px_hsl(216_88%_45%/0.6)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_24px_50px_-32px_hsl(216_88%_45%/0.55)]"
+            >
+              <span className="flex gap-0.5 text-primary">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={13} fill="currentColor" />
+                ))}
+              </span>
+              <blockquote className="mt-4 flex-1 text-[14px] leading-relaxed">
+                « {t.quote} »
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-dashed border-border pt-5">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/10 font-display text-[12px] font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  {initials}
+                </span>
+                <span className="text-[13px]">
+                  <span className="block font-semibold">{t.name}</span>
+                  <span className="block text-[12px] text-muted-foreground">{t.role}</span>
+                </span>
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
     </section>
   );
