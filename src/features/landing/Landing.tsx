@@ -138,62 +138,180 @@ function Header() {
 
 /* --------------------------------- Hero ---------------------------------- */
 
+type HeroSlide = {
+  image: string;
+  alt: string;
+  kicker: string;
+  title: string;
+  /** Mots ou phrases à surligner dans le titre */
+  highlight: string;
+  body: string;
+  cta: string;
+  href: string;
+  badge: string;
+};
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    image: heroImg,
+    alt: "Coursier FastSends chargeant des colis dans un utilitaire",
+    kicker: "Envoi de colis",
+    title: "Vos colis partent, vous savez où ils sont.",
+    highlight: "où ils sont.",
+    body: "Enlèvement, groupage et fret aérien. Chaque demande reçoit un identifiant, chaque carton un statut — de l'entrepôt de départ jusqu'à la remise.",
+    cta: "Créer une demande",
+    href: "/demande",
+    badge: "Dernier départ · FS-DLS-00421 · Paris CDG → Brazzaville · 12 colis · en transit",
+  },
+  {
+    image: heroShoppingImg,
+    alt: "Assistante de magasin scannant un colis en boutique",
+    kicker: "Achats en Afrique de l'Ouest",
+    title: "On achète pour vous, au magasin ou en ligne.",
+    highlight: "pour vous,",
+    body: "Vous nous décrivez l'article, nos équipes l'achètent sur place, le photographient et l'expédient. Vous ne payez que lorsque c'est trouvé.",
+    cta: "Faire acheter un article",
+    href: "/demande",
+    badge: "Shop For You · achats vérifiés et photographiés avant expédition",
+  },
+  {
+    image: heroFretImg,
+    alt: "Palettes de fret chargées dans un avion cargo au coucher du soleil",
+    kicker: "Fret aérien express",
+    title: "Vos marchandises en l'air sous 72 heures.",
+    highlight: "sous 72 heures.",
+    body: "Départs groupés chaque semaine vers Brazzaville, Kinshasa et Pointe-Noire. Tarif à la pesée, suivi à chaque escale.",
+    cta: "Expédier en fret",
+    href: "/demande",
+    badge: "Prochain départ groupé · jeudi · Paris CDG → Maya-Maya",
+  },
+];
+
 function Hero() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % HERO_SLIDES.length), 6000);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const slide = HERO_SLIDES[index];
+
+  const renderTitle = (s: HeroSlide) => {
+    const parts = s.title.split(s.highlight);
+    if (parts.length < 2) return s.title;
+    return (
+      <>
+        {parts[0]}
+        <mark className="bg-primary px-1.5 text-primary-foreground rounded-sm box-decoration-clone">
+          {s.highlight}
+        </mark>
+        {parts[1]}
+      </>
+    );
+  };
+
   return (
-    <section id="top" className="border-b border-border">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-[1.05fr_1fr] md:items-center md:py-20">
-        <div>
-          <Label>France · Belgique → Congo · RD Congo</Label>
-          <h1 className="mt-4 text-[2.6rem] font-semibold leading-[1.03] tracking-tight md:text-6xl">
-            Vos colis partent,
-            <br />
-            vous savez où ils sont.
+    <section id="top" className="relative overflow-hidden border-b border-border">
+      {/* Images en fond */}
+      <div className="absolute inset-0">
+        {HERO_SLIDES.map((s, i) => (
+          <img
+            key={s.kicker}
+            src={s.image}
+            alt={i === index ? s.alt : ""}
+            aria-hidden={i !== index}
+            width={1600}
+            height={1200}
+            fetchPriority={i === 0 ? "high" : "auto"}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/20" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      <div
+        className="relative mx-auto flex max-w-6xl flex-col justify-center px-5 py-16 md:min-h-[560px] md:py-24"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div key={index} className="max-w-2xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-primary backdrop-blur">
+            {slide.kicker}
+          </span>
+          <h1 className="mt-5 text-[2.4rem] font-semibold leading-[1.05] tracking-tight md:text-6xl">
+            {renderTitle(slide)}
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-            Enlèvement, achats sur place, groupage et fret aérien. Chaque demande reçoit un identifiant, chaque
-            carton un statut — de l'entrepôt de départ jusqu'à la remise.
-          </p>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">{slide.body}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              to="/demande"
+              to={slide.href}
               className="rounded-md bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              Créer une demande
+              {slide.cta}
             </Link>
             <a
               href="#simulateur"
-              className="rounded-md border border-border px-6 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary"
+              className="rounded-md border border-border bg-background/70 px-6 py-3.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-secondary"
             >
               Estimer le coût
             </a>
           </div>
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
-            {PROOF.map((p) => (
-              <div key={p.label}>
-                <dt className="text-xl font-semibold tracking-tight">{p.value}</dt>
-                <dd className="mt-1 text-[11px] leading-snug text-muted-foreground">{p.label}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
-        <div className="relative">
-          <img
-            src={heroImg}
-            alt="Coursier FastSends chargeant des colis dans un utilitaire"
-            width={1600}
-            height={1200}
-            className="aspect-[4/3] w-full rounded-lg object-cover"
-          />
-          <div className="absolute bottom-4 left-4 right-4 rounded-md border border-border bg-background/95 p-4 backdrop-blur sm:right-auto sm:w-64">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Dernier départ
-            </p>
-            <p className="mt-1 font-mono text-sm font-semibold">FS-DLS-00421</p>
-            <p className="mt-1 text-[11px] text-muted-foreground">
-              Paris CDG → Brazzaville · 12 colis · en transit
-            </p>
+
+        {/* Badge du slide + contrôles */}
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <span className="inline-flex max-w-full items-center gap-2 rounded-md border border-border bg-background/85 px-4 py-2.5 text-[12px] text-muted-foreground backdrop-blur">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            {slide.badge}
+          </span>
+          <div className="ml-auto flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Slide précédent"
+              onClick={() => setIndex((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+              className="grid h-9 w-9 place-items-center rounded-md border border-border bg-background/85 backdrop-blur transition-colors hover:bg-secondary"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              type="button"
+              aria-label="Slide suivant"
+              onClick={() => setIndex((i) => (i + 1) % HERO_SLIDES.length)}
+              className="grid h-9 w-9 place-items-center rounded-md border border-border bg-background/85 backdrop-blur transition-colors hover:bg-secondary"
+            >
+              <ChevronRight size={16} />
+            </button>
+            <div className="flex items-center gap-1.5 pl-1">
+              {HERO_SLIDES.map((s, i) => (
+                <button
+                  key={s.kicker}
+                  type="button"
+                  aria-label={`Aller au slide ${i + 1}`}
+                  onClick={() => setIndex(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === index ? "w-6 bg-primary" : "w-1.5 bg-foreground/25 hover:bg-foreground/50"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Preuves */}
+        <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
+          {PROOF.map((p) => (
+            <div key={p.label}>
+              <dt className="text-xl font-semibold tracking-tight">{p.value}</dt>
+              <dd className="mt-1 text-[11px] leading-snug text-muted-foreground">{p.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
