@@ -1178,6 +1178,7 @@ export function Landing() {
         <Tarifs />
         <Simulateur />
         <Offres />
+        <Pourquoi />
         <Methode />
         <Equipe />
         <Avis />
