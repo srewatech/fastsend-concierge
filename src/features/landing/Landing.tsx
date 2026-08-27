@@ -221,7 +221,7 @@ function Services() {
         }
       />
 
-      <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((s) => (
           <Link
             key={s.id}
@@ -495,7 +495,7 @@ function Simulateur() {
 
           <Link
             to="/demande"
-            className="mt-6 rounded-md bg-primary px-4 py-3.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="mt-auto rounded-md bg-primary px-4 py-3.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 lg:mt-6"
           >
             Lancer cette demande
           </Link>
