@@ -24,12 +24,12 @@ import heroShoppingImg from "@/assets/hero-shopping.jpg";
 import heroFretImg from "@/assets/hero-fret.jpg";
 import teamImg from "@/assets/team-agency.jpg";
 
-const NAV = [
-  { href: "#acces", label: "Nos accès" },
-  { href: "#services", label: "Services" },
-  { href: "#tarifs", label: "Tarifs" },
-  { href: "#equipe", label: "L'équipe" },
-  { href: "#avis", label: "Avis" },
+const NAV: Array<{ href: string; label: string }> = [
+  { href: "/#acces", label: "Nos accès" },
+  { href: "/#services", label: "Services" },
+  { href: "/tarifs", label: "Tarifs" },
+  { href: "/#equipe", label: "L'équipe" },
+  { href: "/#avis", label: "Avis" },
 ];
 
 const ACCESS_ICONS = { acheter: ShoppingBag, envoyer: Send, retirer: Truck } as const;
@@ -71,7 +71,7 @@ function SectionHead({
 
 /* ---------------------------------- Nav ---------------------------------- */
 
-function Header() {
+export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
