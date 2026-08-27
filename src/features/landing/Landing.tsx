@@ -1068,14 +1068,14 @@ function Methode() {
         </ol>
 
         {/* ----- Timeline verticale (mobile) ----- */}
-        <ol className="relative mt-12 space-y-6 pl-10 md:hidden">
+        <ol className="relative mt-12 space-y-8 pl-12 md:hidden">
           <div
             aria-hidden
-            className="absolute bottom-2 left-[21px] top-2 w-px bg-primary-foreground/30"
+            className="absolute bottom-3 left-[25px] top-3 w-px bg-primary-foreground/25"
           />
           {JOURNEY_PHASES.map((p) => (
             <li key={p.id} id={`phase-${p.id}`} className="relative scroll-mt-28">
-              <span className="absolute -left-10 top-4 grid h-9 w-9 place-items-center rounded-full bg-primary-foreground font-mono text-[12px] font-bold text-primary ring-4 ring-primary">
+              <span className="absolute -left-12 top-4 grid h-10 w-10 place-items-center rounded-full bg-primary-foreground font-mono text-[12px] font-bold text-primary ring-4 ring-primary">
                 {p.step}
               </span>
               {cardBody(p)}
