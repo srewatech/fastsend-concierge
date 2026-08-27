@@ -197,7 +197,66 @@ function Hero() {
   );
 }
 
+/* --------------------------------- Accès ---------------------------------- */
+
+function Acces() {
+  return (
+    <section id="acces" className="border-b border-border bg-secondary/40">
+      <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
+        <div className="max-w-2xl">
+          <Label>Par où commencer</Label>
+          <h2 className="mt-3 text-3xl font-semibold leading-[1.1] tracking-tight md:text-[2.4rem]">
+            Comment pouvons-nous vous aider aujourd'hui ?
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+            Trois portes d'entrée, un même parcours de demande. Choisissez la vôtre.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {ACCESS_CARDS.map((c) => {
+            const Icon = ACCESS_ICONS[c.id as keyof typeof ACCESS_ICONS] ?? Send;
+            return (
+              <Link
+                key={c.id}
+                to="/demande"
+                className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-[0_12px_30px_-18px_hsl(216_88%_45%/0.6)]"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                  <Icon size={18} />
+                </span>
+                <h3 className="mt-5 text-lg font-semibold tracking-tight">{c.title}</h3>
+                <p className="mt-2 flex-1 text-[13px] leading-relaxed text-muted-foreground">{c.body}</p>
+                <span className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-[13px] font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
+                  {c.cta} <span aria-hidden>→</span>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+
+        <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          Nos autres services
+        </p>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {SECONDARY_ACCESS.map((s) => (
+            <a
+              key={s.id}
+              href="#services"
+              className="rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-card/70"
+            >
+              <span className="block text-[13px] font-semibold">{s.title}</span>
+              <span className="mt-0.5 block text-[12px] text-muted-foreground">{s.body}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* -------------------------------- Services -------------------------------- */
+
 
 function Services() {
   const [audience, setAudience] = useState<"particulier" | "entreprise">("particulier");
@@ -262,6 +321,9 @@ function Services() {
 /* --------------------------------- Tarifs --------------------------------- */
 
 function Tarifs() {
+  const [mode, setMode] = useState<"standard" | "express">("standard");
+  const active = TARIF_MODES.find((m) => m.id === mode)!;
+
   return (
     <section id="tarifs" className="border-y border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
@@ -269,43 +331,109 @@ function Tarifs() {
           index="02"
           label="Grille"
           title="Des prix au kilo, sans surprise"
-          intro="Le montant définitif est confirmé après pesée en entrepôt. La grille ci-dessous sert de référence."
-        />
-        <div className="mt-10 overflow-hidden rounded-lg border border-border bg-card">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-border font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                <th className="px-5 py-3 font-normal">Corridor</th>
-                <th className="px-5 py-3 font-normal">Prix / kg</th>
-                <th className="hidden px-5 py-3 font-normal sm:table-cell">Frais de dossier</th>
-                <th className="px-5 py-3 text-right font-normal">Délai</th>
-              </tr>
-            </thead>
-            <tbody>
-              {CORRIDORS.map((c) => (
-                <tr key={c.id} className="border-b border-border last:border-0">
-                  <td className="px-5 py-4">
-                    <span className="text-muted-foreground">{c.from}</span>
-                    <span className="mx-2 text-primary">→</span>
-                    <span className="font-medium">{c.to}</span>
-                  </td>
-                  <td className="px-5 py-4 font-mono font-semibold">{c.pricePerKg.toFixed(2)} €</td>
-                  <td className="hidden px-5 py-4 font-mono text-muted-foreground sm:table-cell">
-                    {c.handling.toFixed(2)} €
-                  </td>
-                  <td className="px-5 py-4 text-right text-muted-foreground">{c.leadTime}</td>
-                </tr>
+          intro="Basculez entre groupage standard et fret express : la grille, les délais et ce qui est inclus s'ajustent."
+          action={
+            <div className="inline-flex rounded-full border border-border bg-card p-1">
+              {TARIF_MODES.map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => setMode(m.id)}
+                  aria-pressed={mode === m.id}
+                  className={
+                    "rounded-full px-4 py-2 text-[12px] font-semibold transition-colors " +
+                    (mode === m.id
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground")
+                  }
+                >
+                  {m.label}
+                </button>
               ))}
-            </tbody>
-          </table>
+            </div>
+          }
+        />
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+          <div className="overflow-hidden rounded-lg border border-border bg-card">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-border font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  <th className="px-5 py-3 font-normal">Corridor</th>
+                  <th className="px-5 py-3 font-normal">Prix / kg</th>
+                  <th className="hidden px-5 py-3 font-normal sm:table-cell">Dossier</th>
+                  <th className="px-5 py-3 text-right font-normal">Délai</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CORRIDORS.map((c) => (
+                  <tr key={c.id} className="border-b border-border last:border-0">
+                    <td className="px-5 py-4">
+                      <span className="text-muted-foreground">{c.from}</span>
+                      <span className="mx-2 text-primary">→</span>
+                      <span className="font-medium">{c.to}</span>
+                    </td>
+                    <td className="px-5 py-4 font-mono font-semibold">
+                      {(c.pricePerKg * active.factor).toFixed(2)} €
+                    </td>
+                    <td className="hidden px-5 py-4 font-mono text-muted-foreground sm:table-cell">
+                      {c.handling.toFixed(2)} €
+                    </td>
+                    <td className="px-5 py-4 text-right text-muted-foreground">
+                      {mode === "express" ? active.speed : c.leadTime}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="grid gap-px border-t border-border bg-border sm:grid-cols-3">
+              {[
+                { k: "Poids minimum facturé", v: active.minWeight },
+                { k: "Poids volumétrique", v: "L×l×H ÷ 6000" },
+                { k: "Dégressif groupage", v: "dès 30 kg" },
+              ].map((x) => (
+                <div key={x.k} className="bg-card px-5 py-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                    {x.k}
+                  </span>
+                  <span className="mt-1 block text-sm font-semibold">{x.v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <aside className="rounded-lg border border-border bg-card p-6">
+            <h3 className="text-lg font-semibold tracking-tight">{active.label}</h3>
+            <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{active.hint}</p>
+            <ul className="mt-5 space-y-3 border-t border-border pt-5">
+              {active.includes.map((i) => (
+                <li key={i} className="flex items-start gap-2 text-[13px]">
+                  <Check size={15} className="mt-0.5 shrink-0 text-primary" />
+                  <span>{i}</span>
+                </li>
+              ))}
+              <li className="flex items-start gap-2 text-[13px] text-muted-foreground">
+                <X size={15} className="mt-0.5 shrink-0" />
+                <span>Droits et taxes locaux à la charge du destinataire.</span>
+              </li>
+            </ul>
+            <Link
+              to="/demande"
+              className="mt-6 block rounded-md bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Créer une demande {active.id === "express" ? "express" : "standard"}
+            </Link>
+          </aside>
         </div>
+
         <p className="mt-4 text-[12px] text-muted-foreground">
-          Poids facturé = max(poids réel, L×l×H ÷ 6000). Groupage dégressif à partir de 30 kg.
+          Montants indicatifs : le total est confirmé après pesée en entrepôt.
         </p>
       </div>
     </section>
   );
 }
+
 
 /* ------------------------------- Simulateur ------------------------------- */
 
@@ -600,11 +728,91 @@ function Methode() {
           </li>
         ))}
       </ol>
+    </section>
+  );
+}
 
-      <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
+/* --------------------------------- Équipe --------------------------------- */
+
+function Equipe() {
+  return (
+    <section id="equipe" className="border-y border-border bg-secondary/50">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-2 md:items-center md:py-24">
+        <div>
+          <Label>L'équipe</Label>
+          <h2 className="mt-3 text-3xl font-semibold leading-[1.1] tracking-tight md:text-[2.4rem]">
+            L'équipe FastSends à vos côtés
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+            Derrière chaque demande, des agents en entrepôt qui pèsent, contrôlent et confirment. Pas un
+            algorithme : des personnes que vous pouvez appeler.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {TEAM_POINTS.map((p) => (
+              <li key={p} className="flex items-start gap-3 text-[14px]">
+                <Check size={16} className="mt-0.5 shrink-0 text-primary" />
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="tel:+33100000000"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-[13px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              <Phone size={15} /> Nous contacter
+            </a>
+            <Link
+              to="/demandes"
+              className="rounded-md border border-border bg-card px-5 py-3 text-[13px] font-semibold transition-colors hover:bg-secondary"
+            >
+              Suivre un colis
+            </Link>
+          </div>
+        </div>
+        <img
+          src={teamImg}
+          alt="Agents FastSends remettant un colis à une cliente au comptoir de l'agence"
+          width={1200}
+          height={1000}
+          loading="lazy"
+          className="aspect-[6/5] w-full rounded-xl border border-border object-cover"
+        />
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------- Avis ---------------------------------- */
+
+function Avis() {
+  return (
+    <section id="avis" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+      <SectionHead index="06" label="Avis" title="Ils nous font confiance" />
+
+      <div className="mt-8 inline-flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4">
+        <span className="text-3xl font-semibold tracking-tight">{REVIEW_SCORE.score}</span>
+        <span>
+          <span className="flex gap-0.5 text-primary">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={13} fill="currentColor" />
+            ))}
+          </span>
+          <span className="mt-1 block text-[12px] text-muted-foreground">
+            {REVIEW_SCORE.count} {REVIEW_SCORE.source.toLowerCase()}
+          </span>
+        </span>
+      </div>
+
+      <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
         {TESTIMONIALS.map((t) => (
           <figure key={t.name} className="bg-card p-6">
-            <blockquote className="text-[14px] leading-relaxed">« {t.quote} »</blockquote>
+            <span className="flex gap-0.5 text-primary">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={12} fill="currentColor" />
+              ))}
+            </span>
+            <blockquote className="mt-4 text-[14px] leading-relaxed">« {t.quote} »</blockquote>
             <figcaption className="mt-5 border-t border-border pt-4 text-[12px]">
               <span className="font-semibold">{t.name}</span>
               <span className="block text-muted-foreground">{t.role}</span>
@@ -615,6 +823,7 @@ function Methode() {
     </section>
   );
 }
+
 
 /* ---------------------------------- CTA ----------------------------------- */
 
@@ -674,19 +883,75 @@ function Footer() {
   );
 }
 
+/* ----------------------------- Bouton flottant ---------------------------- */
+
+function FloatingHelp() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+      {open ? (
+        <div className="w-64 rounded-xl border border-border bg-card p-4 shadow-[0_18px_40px_-20px_hsl(215_32%_12%/0.5)]">
+          <p className="text-[13px] font-semibold">Besoin d'aide ?</p>
+          <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
+            Un agent vous répond du lundi au samedi, 8 h – 19 h.
+          </p>
+          <div className="mt-3 grid gap-2">
+            <a
+              href="https://wa.me/33100000000"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md bg-primary px-3 py-2.5 text-center text-[12px] font-semibold text-primary-foreground"
+            >
+              Écrire sur WhatsApp
+            </a>
+            <a
+              href="tel:+33100000000"
+              className="rounded-md border border-border px-3 py-2.5 text-center text-[12px] font-semibold"
+            >
+              Appeler le support
+            </a>
+            <Link
+              to="/demande"
+              className="rounded-md border border-border px-3 py-2.5 text-center text-[12px] font-semibold"
+            >
+              Créer une demande
+            </Link>
+          </div>
+        </div>
+      ) : null}
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label={open ? "Fermer l'aide" : "Ouvrir l'aide"}
+        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3.5 text-[13px] font-semibold text-primary-foreground shadow-[0_14px_30px_-12px_hsl(216_88%_45%/0.8)] transition-transform hover:scale-[1.03]"
+      >
+        {open ? <X size={17} /> : <MessageCircle size={17} />}
+        <span className="hidden sm:inline">{open ? "Fermer" : "Aide & devis"}</span>
+      </button>
+    </div>
+  );
+}
+
 export function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main>
         <Hero />
+        <Acces />
         <Services />
         <Tarifs />
         <Simulateur />
         <Offres />
         <Methode />
+        <Equipe />
+        <Avis />
       </main>
       <Footer />
+      <FloatingHelp />
     </div>
   );
+}
+
 }
