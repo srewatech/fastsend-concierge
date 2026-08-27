@@ -1021,11 +1021,11 @@ function Methode() {
         </div>
 
         {/* ----- Timeline horizontale (desktop) ----- */}
-        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-5">
+        <ol className="relative mt-16 hidden md:grid md:grid-cols-5 md:gap-8 lg:gap-10">
           {/* Ligne centrale */}
           <div
             aria-hidden
-            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-primary-foreground/30"
+            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-primary-foreground/25"
           />
           {JOURNEY_PHASES.map((p, i) => {
             const above = i % 2 === 0;
