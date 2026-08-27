@@ -8,7 +8,7 @@ import {
   CORRIDORS,
   OFFERS,
   OPTIONS,
-  PROCESS_TRACKS,
+  JOURNEY_PHASES,
   PROOF,
   WHY_US,
   REVIEW_SCORE,
@@ -946,6 +946,26 @@ function Pourquoi() {
 /* --------------------------------- Méthode -------------------------------- */
 
 function Methode() {
+  const [active, setActive] = useState(JOURNEY_PHASES[0].id);
+
+  useEffect(() => {
+    const nodes = JOURNEY_PHASES.map((p) => document.getElementById(`phase-${p.id}`)).filter(
+      (n): n is HTMLElement => Boolean(n),
+    );
+    if (!nodes.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActive(visible.target.id.replace("phase-", ""));
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+    );
+    nodes.forEach((n) => obs.observe(n));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <section id="methode" className="relative overflow-hidden bg-primary text-primary-foreground">
       <div
@@ -953,48 +973,118 @@ function Methode() {
         className="absolute inset-x-0 -top-px h-16 bg-background [clip-path:ellipse(75%_100%_at_50%_0%)]"
       />
       <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-24 md:pb-24 md:pt-32">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
-            Comment ça marche ?
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]">
+            03 — Le flux réel
+          </span>
+          <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+            Comment ça marche&nbsp;?
           </h2>
           <p className="mt-3 text-sm text-primary-foreground/80 md:text-base">
-            Deux parcours, la même simplicité.
+            Une seule demande, cinq phases : de votre formulaire au retrait du colis. Le prix, lui,
+            n'est fixé qu'après la pesée en entrepôt.
           </p>
         </div>
 
-        <div className="mt-12 space-y-10">
-          {PROCESS_TRACKS.map((track) => (
-            <div key={track.id}>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <h3 className="font-display text-lg font-bold tracking-tight md:text-xl">{track.title}</h3>
-                <Link
-                  to="/demande"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-4 py-2 text-[12px] font-semibold text-primary transition-transform hover:translate-x-0.5"
-                >
-                  Voir le détail <ArrowRight size={14} />
-                </Link>
-              </div>
-              <ol className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {track.steps.map((s, i) => (
-                  <li
-                    key={s.title}
-                    className="rounded-2xl bg-card p-5 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.6)]"
-                  >
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-foreground font-mono text-[11px] font-bold text-background">
-                      {i + 1}
-                    </span>
-                    <h4 className="mt-4 font-display text-[15px] font-bold tracking-tight">{s.title}</h4>
-                    <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{s.body}</p>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr] lg:gap-14">
+          {/* Rail de progression */}
+          <nav aria-label="Étapes du parcours" className="hidden lg:block">
+            <ol className="sticky top-28 space-y-1">
+              {JOURNEY_PHASES.map((p) => {
+                const on = p.id === active;
+                return (
+                  <li key={p.id}>
+                    <a
+                      href={`#phase-${p.id}`}
+                      className={`flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors ${
+                        on ? "bg-primary-foreground/15" : "hover:bg-primary-foreground/10"
+                      }`}
+                    >
+                      <span
+                        className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full font-mono text-[10px] font-bold transition-colors ${
+                          on
+                            ? "bg-primary-foreground text-primary"
+                            : "bg-primary-foreground/20 text-primary-foreground"
+                        }`}
+                      >
+                        {p.step}
+                      </span>
+                      <span
+                        className={`text-[13px] font-semibold leading-snug ${
+                          on ? "" : "text-primary-foreground/70"
+                        }`}
+                      >
+                        {p.title}
+                      </span>
+                    </a>
                   </li>
-                ))}
-              </ol>
-            </div>
-          ))}
+                );
+              })}
+            </ol>
+          </nav>
+
+          {/* Phases */}
+          <ol className="space-y-5">
+            {JOURNEY_PHASES.map((p, i) => (
+              <li
+                key={p.id}
+                id={`phase-${p.id}`}
+                className="scroll-mt-28 rounded-2xl bg-card p-6 text-card-foreground shadow-[0_18px_40px_-30px_rgb(0_0_0/0.6)] md:p-8"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground font-mono text-[12px] font-bold text-background">
+                    {p.step}
+                  </span>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+                    {p.actor}
+                  </span>
+                  {i === JOURNEY_PHASES.length - 1 && (
+                    <span className="rounded-full bg-secondary px-3 py-1 text-[11px] font-semibold text-muted-foreground">
+                      Fin du parcours
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-4 font-display text-xl font-bold tracking-tight md:text-2xl">
+                  {p.title}
+                </h3>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-muted-foreground">{p.lead}</p>
+                <ul className="mt-5 space-y-2.5">
+                  {p.points.map((pt) => (
+                    <li key={pt} className="flex items-start gap-3 text-[13.5px] leading-relaxed">
+                      <Check size={16} className="mt-0.5 shrink-0 text-primary" />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+                {p.note && (
+                  <p className="mt-5 rounded-xl border border-dashed border-border bg-secondary/60 px-4 py-3 text-[12.5px] leading-relaxed text-muted-foreground">
+                    {p.note}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <Link
+            to="/demande"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-5 py-3 text-[13px] font-semibold text-primary transition-transform hover:translate-x-0.5"
+          >
+            Créer ma demande <ArrowRight size={15} />
+          </Link>
+          <Link
+            to="/demandes"
+            className="rounded-full border border-primary-foreground/40 px-5 py-3 text-[13px] font-semibold transition-colors hover:bg-primary-foreground/10"
+          >
+            Suivre une demande existante
+          </Link>
         </div>
       </div>
     </section>
   );
 }
+
 
 /* --------------------------------- Équipe --------------------------------- */
 

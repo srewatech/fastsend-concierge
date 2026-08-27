@@ -107,11 +107,89 @@ export const WHY_US: WhyPoint[] = [
 
 /* --------------------------- Comment ça marche ---------------------------- */
 
+export interface JourneyPhase {
+  id: string;
+  step: string;
+  title: string;
+  lead: string;
+  actor: "Vous" | "FastSends" | "Entrepôt";
+  points: string[];
+  note?: string;
+}
+
+/** Le flux réel : une seule demande, cinq phases, du formulaire au retrait. */
+export const JOURNEY_PHASES: JourneyPhase[] = [
+  {
+    id: "demande",
+    step: "01",
+    title: "Vous créez votre demande",
+    lead: "Un seul formulaire, quel que soit le service choisi.",
+    actor: "Vous",
+    points: [
+      "Vos coordonnées, puis le service : envoi, achat, enlèvement ou fret.",
+      "Le formulaire s'adapte : entrepôt de dépôt, destination, nombre de colis, liens produits.",
+      "Un identifiant unique est généré (ex. FS-DLS-00147) et vos bordereaux sont prêts à imprimer.",
+    ],
+    note: "Aucun prix n'est figé à cette étape : le tarif dépend de la pesée réelle.",
+  },
+  {
+    id: "prise-en-charge",
+    step: "02",
+    title: "Le colis arrive chez nous",
+    lead: "Dépôt en agence, enlèvement à domicile ou achat effectué par nos soins.",
+    actor: "Vous",
+    points: [
+      "Vous déposez vos colis avec le bordereau collé dessus.",
+      "Ou nous passons le récupérer à l'adresse indiquée lors du Pick-up.",
+      "Pour un Shop For You, notre équipe achète et fait livrer à l'entrepôt.",
+    ],
+  },
+  {
+    id: "reception",
+    step: "03",
+    title: "Réception et pesée en entrepôt",
+    lead: "Chaque colis est scanné, rattaché à votre demande, pesé et contrôlé.",
+    actor: "Entrepôt",
+    points: [
+      "Le bordereau est scanné : le colis est associé automatiquement à votre dossier.",
+      "Sans bordereau, l'agent retrouve la demande par nom, téléphone ou transporteur.",
+      "Poids réel, dimensions et état sont enregistrés, photos à l'appui.",
+    ],
+    note: "Votre suivi passe de « attendu » à « reçu en entrepôt » en temps réel.",
+  },
+  {
+    id: "facturation",
+    step: "04",
+    title: "Facture après pesée, puis paiement",
+    lead: "Le prix au kilo annoncé est appliqué au poids constaté.",
+    actor: "FastSends",
+    points: [
+      "Vous recevez le montant exact, ligne par ligne, sans frais surprise.",
+      "Paiement au choix : lien carte, Mobile Money, USSD, PayPal, transfert ou espèces.",
+      "Codes promo et parrainage sont déduits avant validation.",
+    ],
+  },
+  {
+    id: "expedition",
+    step: "05",
+    title: "Groupage, départ et retrait",
+    lead: "Vos colis partent en valise scellée sur le prochain vol.",
+    actor: "Entrepôt",
+    points: [
+      "Groupage en valise, scellé numéroté, départ enregistré avec le vol.",
+      "Contrôle à l'arrivée : chaque colis est pointé avant mise à disposition.",
+      "Le destinataire est prévenu et retire en agence, ou nous livrons.",
+    ],
+    note: "Chaque étape est horodatée dans la timeline de votre demande.",
+  },
+];
+
 export interface ProcessTrack {
   id: string;
   title: string;
   steps: { title: string; body: string }[];
 }
+
 
 export const PROCESS_TRACKS: ProcessTrack[] = [
   {
