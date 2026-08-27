@@ -257,7 +257,7 @@ function Hero() {
               {slide.cta}
             </Link>
             <a
-              href="#simulateur"
+              href="/tarifs"
               className="rounded-md border border-border bg-background/70 px-6 py-3.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-secondary"
             >
               Estimer le coût
