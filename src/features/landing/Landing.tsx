@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, CalendarCheck, PackageOpen, ArrowRight } from "lucide-react";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -60,7 +60,7 @@ function SectionHead({
           <span className="font-mono text-[10px] tracking-[0.22em] text-muted-foreground">{index}</span>
           <Label>{label}</Label>
         </div>
-        <h2 className="mt-3 text-3xl font-semibold leading-[1.1] tracking-tight md:text-[2.6rem]">{title}</h2>
+        <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.6rem]">{title}</h2>
         {intro ? <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{intro}</p> : null}
       </div>
       {action}
@@ -244,7 +244,7 @@ function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-primary backdrop-blur">
             {slide.kicker}
           </span>
-          <h1 className="mt-5 text-[2.4rem] font-semibold leading-[1.05] tracking-tight md:text-6xl">
+          <h1 className="mt-5 font-display text-[2.6rem] font-bold leading-[1.02] tracking-tight md:text-[4.2rem]">
             {renderTitle(slide)}
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">{slide.body}</p>
