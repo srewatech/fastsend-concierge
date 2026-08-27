@@ -226,7 +226,7 @@ function Services() {
           <Link
             key={s.id}
             to="/demande"
-            className="group flex flex-col bg-card p-6 transition-colors hover:bg-secondary"
+            className="group flex flex-col rounded-lg border border-border bg-card p-6 transition-colors hover:border-primary/40 hover:bg-secondary"
           >
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{s.code}</span>
