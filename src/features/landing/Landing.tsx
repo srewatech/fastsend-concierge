@@ -320,9 +320,9 @@ function Hero() {
 /* ------------------------- Barre d'accès rapide -------------------------- */
 
 const QUICK_ACTIONS = [
-  { label: "Acheter en Europe", icon: ShoppingBag, service: "shop-store" },
-  { label: "Envoyer un colis", icon: Send, service: "delivery" },
-  { label: "Retirer un colis", icon: PackageOpen, service: "pickup" },
+  { label: "Acheter en Europe", icon: ShoppingBag, service: "shop-store", accent: false },
+  { label: "Envoyer un colis", icon: Send, service: "delivery", accent: false },
+  { label: "Retirer un colis", icon: PackageOpen, service: "pickup", accent: false },
   { label: "Prendre RDV", icon: CalendarCheck, service: "elite-pro", accent: true },
 ] as const;
 
