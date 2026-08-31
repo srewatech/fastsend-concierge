@@ -328,3 +328,40 @@ export const TARIF_MODES: TarifMode[] = [
     includes: ["Départ prioritaire", "Assurance incluse jusqu'à 300 €", "Livraison à domicile possible"],
   },
 ];
+
+export type FaqItem = { q: string; a: string };
+
+export const FAQ: FaqItem[] = [
+  {
+    q: "Comment est calculé le prix de mon envoi ?",
+    a: "Le tarif est établi après la pesée réelle en entrepôt. Nous comparons le poids réel et le poids volumétrique (L × l × H / 5000) et retenons le plus élevé. Vous recevez la facture avant l'expédition, jamais avant la pesée.",
+  },
+  {
+    q: "Quand dois-je payer ?",
+    a: "Après réception de la facture post-pesée. Vous réglez par carte (lien sécurisé), USSD Momo, Mobile Money, PayPal, transfert Western Union / Ria / MoneyGram, ou en espèces en agence.",
+  },
+  {
+    q: "Quels sont les délais de livraison ?",
+    a: "Le groupage standard part chaque semaine selon la grille de délais du corridor. Le fret aérien express part sur le premier vol disponible, généralement sous 48 à 72 h.",
+  },
+  {
+    q: "Puis-je suivre mes colis ?",
+    a: "Oui. Chaque demande reçoit un identifiant FS-XXX-00000 et chaque colis un bordereau. La timeline de suivi se met à jour à chaque étape : prise en charge, réception, pesée, départ, arrivée, remise.",
+  },
+  {
+    q: "Que faites-vous si je n'ai pas mon numéro de suivi ?",
+    a: "Nos entrepôts rapprochent le colis par nom, poids et transporteur au moment de la réception. Il suffit que le nom du bénéficiaire soit lisible sur le carton.",
+  },
+  {
+    q: "Vous achetez pour moi en magasin ou en ligne ?",
+    a: "Oui, avec les services Shop For You Magasin et Shop For You En ligne. Vous transmettez le lien ou la description, nous validons le montant avec vous, puis le colis rejoint votre envoi.",
+  },
+  {
+    q: "Quels objets sont interdits ?",
+    a: "Produits inflammables, batteries non conformes, liquides sous pression, stupéfiants, armes, espèces et biens contrefaits. En cas de doute, contactez-nous avant le dépôt.",
+  },
+  {
+    q: "Proposez-vous des tarifs entreprise ?",
+    a: "Oui, via Elite Service Pro : volumes récurrents, facturation mensuelle, interlocuteur dédié et enlèvements planifiés.",
+  },
+];
