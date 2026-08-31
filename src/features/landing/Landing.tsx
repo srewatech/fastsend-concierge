@@ -1240,9 +1240,163 @@ function Avis() {
           );
         })}
       </div>
+
+      <div className="mt-10 flex justify-center">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[14px] font-semibold text-primary-foreground shadow-[0_18px_40px_-24px_hsl(216_88%_45%/0.9)] transition-transform hover:-translate-y-0.5"
+        >
+          <Star size={15} fill="currentColor" />
+          Laisser un avis
+        </button>
+      </div>
+
+      {open ? (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/40 p-4 backdrop-blur-sm sm:items-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Laisser un avis"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="font-display text-xl font-bold tracking-tight">
+                {sent ? "Merci !" : "Laisser un avis"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Fermer"
+                className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <X size={15} />
+              </button>
+            </div>
+
+            {sent ? (
+              <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+                Votre avis a bien été envoyé. Il sera publié après vérification par notre équipe.
+              </p>
+            ) : (
+              <form
+                className="mt-5 space-y-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSent(true);
+                }}
+              >
+                <div>
+                  <span className="mb-2 block text-[12px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Votre note
+                  </span>
+                  <div className="flex gap-1.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        aria-label={`${i + 1} étoile${i ? "s" : ""}`}
+                        onClick={() => setRating(i + 1)}
+                        className={i < rating ? "text-primary" : "text-muted-foreground/40"}
+                      >
+                        <Star size={24} fill="currentColor" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <input
+                  required
+                  placeholder="Votre nom"
+                  className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-[14px] outline-none focus:border-primary"
+                />
+                <textarea
+                  required
+                  rows={4}
+                  placeholder="Racontez votre expérience avec FastSends…"
+                  className="w-full resize-none rounded-2xl border border-border bg-background px-4 py-3 text-[14px] outline-none focus:border-primary"
+                />
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-primary px-6 py-3.5 text-[14px] font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+                >
+                  Envoyer mon avis
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
+
+/* ---------------------------------- FAQ ----------------------------------- */
+
+function Faq() {
+  const [openItem, setOpenItem] = useState<number | null>(0);
+  return (
+    <section id="faq" className="border-t border-border bg-muted/40">
+      <div className="mx-auto max-w-4xl px-5 py-16 md:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <Label>FAQ</Label>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+            Vos questions, nos réponses
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            Tarification après pesée, délais, paiements, suivi : l'essentiel avant de créer votre demande.
+          </p>
+        </div>
+
+        <div className="mt-10 space-y-3">
+          {FAQ.map((item, i) => {
+            const isOpen = openItem === i;
+            return (
+              <div
+                key={item.q}
+                className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_14px_36px_-32px_hsl(216_88%_45%/0.6)]"
+              >
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenItem(isOpen ? null : i)}
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                >
+                  <span className="text-[15px] font-semibold leading-snug">{item.q}</span>
+                  <ChevronDown
+                    size={18}
+                    className={`shrink-0 text-primary transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {isOpen ? (
+                  <p className="border-t border-dashed border-border px-6 py-5 text-[14px] leading-relaxed text-muted-foreground">
+                    {item.a}
+                  </p>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex flex-col items-center gap-3 text-center">
+          <p className="text-[14px] text-muted-foreground">Une autre question ?</p>
+          <Link
+            to="/nouvelle-demande"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[14px] font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+          >
+            Créer ma demande
+            <ArrowRight size={15} />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 
 
 /* ---------------------------------- CTA ----------------------------------- */
