@@ -28,13 +28,13 @@ import heroFretImg from "@/assets/hero-fret.jpg";
 import teamImg from "@/assets/team-agency.jpg";
 
 const NAV: Array<{ href: string; label: string }> = [
-  { href: "/#acces", label: "Nos accès" },
-  { href: "/#services", label: "Services" },
+  { href: "/#top", label: "Accueil" },
   { href: "/tarifs", label: "Tarifs" },
-  { href: "/#equipe", label: "L'équipe" },
-  { href: "/#avis", label: "Avis" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/vols", label: "Vols" },
+  { href: "/#services", label: "Services" },
+  { href: "/tutos", label: "Tutos" },
 ];
+
 
 const ACCESS_ICONS = { acheter: ShoppingBag, envoyer: Send, retirer: Truck } as const;
 
