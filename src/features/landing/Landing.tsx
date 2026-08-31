@@ -1254,12 +1254,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <img
-              src={logoFastsends.url}
+<img
+              src={logoFastsendsWhite.url}
               alt="FastSends"
-              className="h-10 w-auto rounded-lg"
-              width={1138}
-              height={333}
+              className="h-10 w-auto"
+              width={1672}
+              height={941}
             />
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-70">
