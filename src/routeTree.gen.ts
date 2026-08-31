@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VolsRouteImport } from './routes/vols'
+import { Route as TutosRouteImport } from './routes/tutos'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HubRouteImport } from './routes/hub'
@@ -43,6 +44,11 @@ import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.
 const VolsRoute = VolsRouteImport.update({
   id: '/vols',
   path: '/vols',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TutosRoute = TutosRouteImport.update({
+  id: '/tutos',
+  path: '/tutos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TarifsRoute = TarifsRouteImport.update({
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
   '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/demande': typeof DemandeRoute
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
   '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
   '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -297,6 +306,7 @@ export interface FileRouteTypes {
     | '/hub'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
     | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -327,6 +337,7 @@ export interface FileRouteTypes {
     | '/demande'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
     | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -357,6 +368,7 @@ export interface FileRouteTypes {
     | '/hub'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
     | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -390,6 +402,7 @@ export interface RootRouteChildren {
   HubRoute: typeof HubRouteWithChildren
   McpRoute: typeof McpRoute
   TarifsRoute: typeof TarifsRoute
+  TutosRoute: typeof TutosRoute
   VolsRoute: typeof VolsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -406,6 +419,13 @@ declare module '@tanstack/react-router' {
       path: '/vols'
       fullPath: '/vols'
       preLoaderRoute: typeof VolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tutos': {
+      id: '/tutos'
+      path: '/tutos'
+      fullPath: '/tutos'
+      preLoaderRoute: typeof TutosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tarifs': {
@@ -690,6 +710,7 @@ const rootRouteChildren: RootRouteChildren = {
   HubRoute: HubRouteWithChildren,
   McpRoute: McpRoute,
   TarifsRoute: TarifsRoute,
+  TutosRoute: TutosRoute,
   VolsRoute: VolsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
