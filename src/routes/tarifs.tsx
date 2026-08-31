@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Header, Footer, FloatingHelp, Tarifs, Simulateur } from "@/features/landing/Landing";
+import { Header, Footer, FloatingHelp, PageHero, Tarifs, Simulateur } from "@/features/landing/Landing";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
@@ -28,7 +28,13 @@ function TarifsPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main>
+        <PageHero
+          kicker="Tarifs"
+          title="Des prix au kilo, sans surprise"
+          intro="Grille standard ou fret express selon le corridor, et une estimation immédiate avant la pesée en entrepôt."
+        />
         <Tarifs />
+
         <Simulateur />
       </main>
       <Footer />

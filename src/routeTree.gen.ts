@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VolsRouteImport } from './routes/vols'
+import { Route as TutosRouteImport } from './routes/tutos'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HubRouteImport } from './routes/hub'
@@ -39,6 +41,16 @@ import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
+const VolsRoute = VolsRouteImport.update({
+  id: '/vols',
+  path: '/vols',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TutosRoute = TutosRouteImport.update({
+  id: '/tutos',
+  path: '/tutos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TarifsRoute = TarifsRouteImport.update({
   id: '/tarifs',
   path: '/tarifs',
@@ -196,6 +208,8 @@ export interface FileRoutesByFullPath {
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
+  '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
@@ -225,6 +239,8 @@ export interface FileRoutesByTo {
   '/demande': typeof DemandeRoute
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
+  '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/parcels': typeof AdminParcelsRoute
@@ -255,6 +271,8 @@ export interface FileRoutesById {
   '/hub': typeof HubRouteWithChildren
   '/mcp': typeof McpRoute
   '/tarifs': typeof TarifsRoute
+  '/tutos': typeof TutosRoute
+  '/vols': typeof VolsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/demandes': typeof AdminDemandesRouteWithChildren
@@ -288,6 +306,8 @@ export interface FileRouteTypes {
     | '/hub'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
+    | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
@@ -317,6 +337,8 @@ export interface FileRouteTypes {
     | '/demande'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
+    | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/parcels'
@@ -346,6 +368,8 @@ export interface FileRouteTypes {
     | '/hub'
     | '/mcp'
     | '/tarifs'
+    | '/tutos'
+    | '/vols'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/demandes'
@@ -378,6 +402,8 @@ export interface RootRouteChildren {
   HubRoute: typeof HubRouteWithChildren
   McpRoute: typeof McpRoute
   TarifsRoute: typeof TarifsRoute
+  TutosRoute: typeof TutosRoute
+  VolsRoute: typeof VolsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DemandesIdRoute: typeof DemandesIdRoute
@@ -388,6 +414,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vols': {
+      id: '/vols'
+      path: '/vols'
+      fullPath: '/vols'
+      preLoaderRoute: typeof VolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tutos': {
+      id: '/tutos'
+      path: '/tutos'
+      fullPath: '/tutos'
+      preLoaderRoute: typeof TutosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tarifs': {
       id: '/tarifs'
       path: '/tarifs'
@@ -670,6 +710,8 @@ const rootRouteChildren: RootRouteChildren = {
   HubRoute: HubRouteWithChildren,
   McpRoute: McpRoute,
   TarifsRoute: TarifsRoute,
+  TutosRoute: TutosRoute,
+  VolsRoute: VolsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
