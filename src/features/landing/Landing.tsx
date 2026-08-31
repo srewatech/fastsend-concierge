@@ -1252,9 +1252,14 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-primary font-mono text-[11px] font-bold text-primary-foreground">
-              FS
-            </span>
+            <img
+              src={logoFastsends.url}
+              alt="FastSends"
+              className="h-10 w-auto rounded-lg"
+              width={1138}
+              height={333}
+            />
+
             <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-70">
               FastSends organise l'expédition de colis et l'achat sur place entre l'Europe et l'Afrique
               centrale, avec un suivi carton par carton.
