@@ -80,11 +80,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="/#top" className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-primary font-mono text-[11px] font-bold text-primary-foreground">
-            FS
-          </span>
-          <span className="text-sm font-semibold tracking-tight">FastSends</span>
+        <a href="/#top" className="flex items-center">
+          <img
+            src={logoFastsends.url}
+            alt="FastSends"
+            className="h-9 w-auto rounded-lg"
+            width={1138}
+            height={333}
+          />
         </a>
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((n) => (
