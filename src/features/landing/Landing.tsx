@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
+import logoFastsends from "@/assets/logo-fastsends.png.asset.json";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -80,11 +81,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="/#top" className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-primary font-mono text-[11px] font-bold text-primary-foreground">
-            FS
-          </span>
-          <span className="text-sm font-semibold tracking-tight">FastSends</span>
+        <a href="/#top" className="flex items-center">
+          <img
+            src={logoFastsends.url}
+            alt="FastSends"
+            className="h-9 w-auto rounded-lg"
+            width={1138}
+            height={333}
+          />
         </a>
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((n) => (
@@ -1248,9 +1252,14 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-primary font-mono text-[11px] font-bold text-primary-foreground">
-              FS
-            </span>
+            <img
+              src={logoFastsends.url}
+              alt="FastSends"
+              className="h-10 w-auto rounded-lg"
+              width={1138}
+              height={333}
+            />
+
             <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-70">
               FastSends organise l'expédition de colis et l'achat sur place entre l'Europe et l'Afrique
               centrale, avec un suivi carton par carton.
