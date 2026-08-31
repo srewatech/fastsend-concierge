@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
-import logoFastsends from "@/assets/logo-fastsends.png.asset.json";
 import logoFastsendsBlue from "@/assets/logo-fastsends-blue.png.asset.json";
+import logoFastsendsWhite from "@/assets/logo-fastsends-white.png.asset.json";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -1253,12 +1253,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <img
-              src={logoFastsends.url}
+<img
+              src={logoFastsendsWhite.url}
               alt="FastSends"
-              className="h-10 w-auto rounded-lg"
-              width={1138}
-              height={333}
+              className="h-10 w-auto"
+              width={1672}
+              height={941}
             />
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-70">
