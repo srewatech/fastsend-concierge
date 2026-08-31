@@ -33,6 +33,7 @@ const NAV: Array<{ href: string; label: string }> = [
   { href: "/tarifs", label: "Tarifs" },
   { href: "/#equipe", label: "L'équipe" },
   { href: "/#avis", label: "Avis" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 const ACCESS_ICONS = { acheter: ShoppingBag, envoyer: Send, retirer: Truck } as const;
