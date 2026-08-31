@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
 import logoFastsends from "@/assets/logo-fastsends.png.asset.json";
+import logoFastsendsBlue from "@/assets/logo-fastsends-blue.png.asset.json";
 import { SERVICES } from "@/features/wizard/services";
 import type { ServiceId } from "@/features/wizard/types";
 import {
@@ -82,12 +83,12 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <a href="/#top" className="flex items-center">
-          <img
-            src={logoFastsends.url}
+<img
+            src={logoFastsendsBlue.url}
             alt="FastSends"
-            className="h-9 w-auto rounded-lg"
-            width={1138}
-            height={333}
+            className="h-9 w-auto"
+            width={1591}
+            height={663}
           />
         </a>
         <nav className="hidden items-center gap-7 md:flex">
