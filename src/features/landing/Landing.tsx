@@ -48,8 +48,8 @@ function SectionHead({
   intro,
   action,
 }: {
-  index: string;
-  label: string;
+  index?: string;
+  label?: string;
   title: string;
   intro?: string;
   action?: React.ReactNode;
@@ -57,10 +57,14 @@ function SectionHead({
   return (
     <div className="flex flex-col gap-5 border-t border-border pt-6 md:flex-row md:items-end md:justify-between">
       <div className="max-w-2xl">
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px] tracking-[0.22em] text-muted-foreground">{index}</span>
-          <Label>{label}</Label>
-        </div>
+        {index || label ? (
+          <div className="flex items-center gap-3">
+            {index ? (
+              <span className="font-mono text-[10px] tracking-[0.22em] text-muted-foreground">{index}</span>
+            ) : null}
+            {label ? <Label>{label}</Label> : null}
+          </div>
+        ) : null}
         <h2 className="mt-3 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.6rem]">{title}</h2>
         {intro ? <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{intro}</p> : null}
       </div>
