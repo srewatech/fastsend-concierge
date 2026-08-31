@@ -517,9 +517,7 @@ export function Tarifs() {
   return (
     <section id="tarifs" className="border-y border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <SectionHead
-          index="02"
-          label="Grille"
+<SectionHead
           title="Des prix au kilo, sans surprise"
           intro="Basculez entre groupage standard et fret express : la grille, les délais et ce qui est inclus s'ajustent."
           action={
@@ -658,9 +656,7 @@ export function Simulateur() {
 
   return (
     <section id="simulateur" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-      <SectionHead
-        index="03"
-        label="Estimation"
+<SectionHead
         title="Le calcul des frais d'expédition"
         intro="Le formulaire s'ajuste au service choisi. L'estimation est indicative et reste soumise à la pesée."
       />
@@ -846,7 +842,7 @@ function Offres() {
   return (
     <section id="offres" className="border-y border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <SectionHead index="04" label="En ce moment" title="Nos offres actives" />
+        <SectionHead title="Nos offres actives" />
         <div className="mt-10 grid gap-6 lg:grid-cols-[320px_1fr]">
           <ul className="space-y-px overflow-hidden rounded-lg border border-border bg-border">
             {OFFERS.map((o) => (
