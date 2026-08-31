@@ -1007,11 +1007,8 @@ function Methode() {
         className="absolute inset-x-0 -top-px h-16 bg-background [clip-path:ellipse(75%_100%_at_50%_0%)]"
       />
       <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-24 md:pb-20 md:pt-32">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]">
-            03 — Le flux réel
-          </span>
-          <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
+<div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[2.7rem]">
             Comment ça marche&nbsp;?
           </h2>
           <p className="mt-3 text-sm text-primary-foreground/80 md:text-base">
