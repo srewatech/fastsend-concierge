@@ -13,6 +13,7 @@ import {
   JOURNEY_PHASES,
   PROOF,
   WHY_US,
+  FAQ,
   REVIEW_SCORE,
   SECONDARY_ACCESS,
   TARIF_MODES,
@@ -1181,6 +1182,9 @@ function Equipe() {
 /* ---------------------------------- Avis ---------------------------------- */
 
 function Avis() {
+  const [open, setOpen] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [rating, setRating] = useState(5);
   return (
     <section id="avis" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
       <div className="mx-auto max-w-2xl text-center">
@@ -1384,7 +1388,7 @@ function Faq() {
         <div className="mt-10 flex flex-col items-center gap-3 text-center">
           <p className="text-[14px] text-muted-foreground">Une autre question ?</p>
           <Link
-            to="/nouvelle-demande"
+            to="/demande"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[14px] font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
           >
             Créer ma demande
@@ -1526,6 +1530,7 @@ export function Landing() {
         <Offres />
         <Equipe />
         <Avis />
+        <Faq />
       </main>
       <Footer />
       <FloatingHelp />
