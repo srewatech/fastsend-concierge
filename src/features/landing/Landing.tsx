@@ -432,11 +432,8 @@ function Services() {
   return (
     <section id="services" className="bg-primary/[0.045]">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            01 — Catalogue
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight md:text-4xl">
+<div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
             Six services, <span className="text-primary">un seul parcours</span>
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
