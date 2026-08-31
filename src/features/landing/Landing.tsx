@@ -522,7 +522,7 @@ export function Tarifs() {
   const active = TARIF_MODES.find((m) => m.id === mode)!;
 
   return (
-    <section id="tarifs" className="border-y border-border bg-secondary/50">
+    <section id="tarifs" className="border-b border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
 <SectionHead
           title="Des prix au kilo, sans surprise"
@@ -847,7 +847,7 @@ function Offres() {
   const service = SERVICES.find((s) => s.id === offer.serviceId)!;
 
   return (
-    <section id="offres" className="border-y border-border bg-secondary/50">
+    <section id="offres" className="border-b border-border bg-secondary/50">
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHead title="Nos offres actives" />
         <div className="mt-10 grid gap-6 lg:grid-cols-[320px_1fr]">
