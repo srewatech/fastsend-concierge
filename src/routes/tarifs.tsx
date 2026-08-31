@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Header, Footer, FloatingHelp, Tarifs, Simulateur } from "@/features/landing/Landing";
+import { Header, Footer, FloatingHelp, PageHero, Tarifs, Simulateur } from "@/features/landing/Landing";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
