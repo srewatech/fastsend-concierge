@@ -148,7 +148,38 @@ export function Header() {
   );
 }
 
+/* ------------------------------- Page hero ------------------------------- */
+
+export function PageHero({
+  kicker,
+  title,
+  intro,
+}: {
+  kicker: string;
+  title: string;
+  intro?: string;
+}) {
+  return (
+    <section className="bg-primary text-primary-foreground">
+      <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-foreground/70">
+          {kicker}
+        </span>
+        <h1 className="mt-3 max-w-3xl font-display text-3xl font-bold leading-[1.05] tracking-tight md:text-[3rem]">
+          {title}
+        </h1>
+        {intro ? (
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-primary-foreground/80 md:text-base">
+            {intro}
+          </p>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------------- Hero ---------------------------------- */
+
 
 type HeroSlide = {
   image: string;
