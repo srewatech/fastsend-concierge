@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Phone, ShoppingBag, Send, Truck, Star, Check, X, ChevronLeft, ChevronRight, ChevronDown, CalendarCheck, PackageOpen, ArrowRight, Clock, ShieldCheck, MapPin, Package, Plane, Store, Building2, type LucideIcon } from "lucide-react";
-import logoFastsends from "@/assets/logo-fastsends.png.asset.json";
 import logoFastsendsBlue from "@/assets/logo-fastsends-blue.png.asset.json";
 import logoFastsendsWhite from "@/assets/logo-fastsends-white.png.asset.json";
 import { SERVICES } from "@/features/wizard/services";
