@@ -9,72 +9,42 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as DemandeRouteImport } from './routes/demande'
-import { Route as HubRouteImport } from './routes/hub'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as TarifsRouteImport } from './routes/tarifs'
-import { Route as TutosRouteImport } from './routes/tutos'
 import { Route as VolsRouteImport } from './routes/vols'
-import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as AdminDemandesRouteImport } from './routes/admin.demandes'
-import { Route as AdminParcelsRouteImport } from './routes/admin.parcels'
-import { Route as AdminProfileRouteImport } from './routes/admin.profile'
-import { Route as AdminScanRouteImport } from './routes/admin.scan'
-import { Route as DemandesIndexRouteImport } from './routes/demandes.index'
-import { Route as DemandesIdRouteImport } from './routes/demandes.$id'
+import { Route as TutosRouteImport } from './routes/tutos'
+import { Route as TarifsRouteImport } from './routes/tarifs'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as HubRouteImport } from './routes/hub'
+import { Route as DemandeRouteImport } from './routes/demande'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as HubIndexRouteImport } from './routes/hub.index'
-import { Route as HubArriveesRouteImport } from './routes/hub.arrivees'
-import { Route as HubDepartsRouteImport } from './routes/hub.departs'
-import { Route as HubParcelsRouteImport } from './routes/hub.parcels'
-import { Route as HubReceptionRouteImport } from './routes/hub.reception'
+import { Route as DemandesIndexRouteImport } from './routes/demandes.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as OpsDesignRouteImport } from './routes/ops.design'
-import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
-import { Route as AdminDemandesIndexRouteImport } from './routes/admin.demandes.index'
-import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id'
-import { Route as AdminScanIndexRouteImport } from './routes/admin.scan.index'
-import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
+import { Route as HubReceptionRouteImport } from './routes/hub.reception'
+import { Route as HubParcelsRouteImport } from './routes/hub.parcels'
+import { Route as HubDepartsRouteImport } from './routes/hub.departs'
+import { Route as HubArriveesRouteImport } from './routes/hub.arrivees'
+import { Route as DemandesIdRouteImport } from './routes/demandes.$id'
+import { Route as AdminScanRouteImport } from './routes/admin.scan'
+import { Route as AdminProfileRouteImport } from './routes/admin.profile'
+import { Route as AdminParcelsRouteImport } from './routes/admin.parcels'
+import { Route as AdminDemandesRouteImport } from './routes/admin.demandes'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as HubValisesIndexRouteImport } from './routes/hub.valises.index'
+import { Route as AdminScanIndexRouteImport } from './routes/admin.scan.index'
+import { Route as AdminDemandesIndexRouteImport } from './routes/admin.demandes.index'
 import { Route as HubValisesIdRouteImport } from './routes/hub.valises.$id'
+import { Route as AdminScanMatchRouteImport } from './routes/admin.scan.match'
+import { Route as AdminDemandesIdRouteImport } from './routes/admin.demandes.$id'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemandeRoute = DemandeRouteImport.update({
-  id: '/demande',
-  path: '/demande',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HubRoute = HubRouteImport.update({
-  id: '/hub',
-  path: '/hub',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TarifsRoute = TarifsRouteImport.update({
-  id: '/tarifs',
-  path: '/tarifs',
+const VolsRoute = VolsRouteImport.update({
+  id: '/vols',
+  path: '/vols',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TutosRoute = TutosRouteImport.update({
@@ -82,56 +52,39 @@ const TutosRoute = TutosRouteImport.update({
   path: '/tutos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VolsRoute = VolsRouteImport.update({
-  id: '/vols',
-  path: '/vols',
+const TarifsRoute = TarifsRouteImport.update({
+  id: '/tarifs',
+  path: '/tarifs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemandeRoute = DemandeRouteImport.update({
+  id: '/demande',
+  path: '/demande',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminDemandesRoute = AdminDemandesRouteImport.update({
-  id: '/demandes',
-  path: '/demandes',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminParcelsRoute = AdminParcelsRouteImport.update({
-  id: '/parcels',
-  path: '/parcels',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminProfileRoute = AdminProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminScanRoute = AdminScanRouteImport.update({
-  id: '/scan',
-  path: '/scan',
-  getParentRoute: () => AdminRoute,
-} as any)
-const DemandesIndexRoute = DemandesIndexRouteImport.update({
-  id: '/demandes/',
-  path: '/demandes/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemandesIdRoute = DemandesIdRouteImport.update({
-  id: '/demandes/$id',
-  path: '/demandes/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HubIndexRoute = HubIndexRouteImport.update({
@@ -139,14 +92,24 @@ const HubIndexRoute = HubIndexRouteImport.update({
   path: '/',
   getParentRoute: () => HubRoute,
 } as any)
-const HubArriveesRoute = HubArriveesRouteImport.update({
-  id: '/arrivees',
-  path: '/arrivees',
-  getParentRoute: () => HubRoute,
+const DemandesIndexRoute = DemandesIndexRouteImport.update({
+  id: '/demandes/',
+  path: '/demandes/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const HubDepartsRoute = HubDepartsRouteImport.update({
-  id: '/departs',
-  path: '/departs',
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const OpsDesignRoute = OpsDesignRouteImport.update({
+  id: '/ops/design',
+  path: '/ops/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubReceptionRoute = HubReceptionRouteImport.update({
+  id: '/reception',
+  path: '/reception',
   getParentRoute: () => HubRoute,
 } as any)
 const HubParcelsRoute = HubParcelsRouteImport.update({
@@ -154,20 +117,82 @@ const HubParcelsRoute = HubParcelsRouteImport.update({
   path: '/parcels',
   getParentRoute: () => HubRoute,
 } as any)
-const HubReceptionRoute = HubReceptionRouteImport.update({
-  id: '/reception',
-  path: '/reception',
+const HubDepartsRoute = HubDepartsRouteImport.update({
+  id: '/departs',
+  path: '/departs',
   getParentRoute: () => HubRoute,
 } as any)
-const OpsDesignRoute = OpsDesignRouteImport.update({
-  id: '/ops/design',
-  path: '/ops/design',
+const HubArriveesRoute = HubArriveesRouteImport.update({
+  id: '/arrivees',
+  path: '/arrivees',
+  getParentRoute: () => HubRoute,
+} as any)
+const DemandesIdRoute = DemandesIdRouteImport.update({
+  id: '/demandes/$id',
+  path: '/demandes/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
+const AdminScanRoute = AdminScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminParcelsRoute = AdminParcelsRouteImport.update({
+  id: '/parcels',
+  path: '/parcels',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDemandesRoute = AdminDemandesRouteImport.update({
+  id: '/demandes',
+  path: '/demandes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const HubValisesIndexRoute = HubValisesIndexRouteImport.update({
+  id: '/valises/',
+  path: '/valises/',
+  getParentRoute: () => HubRoute,
+} as any)
+const AdminScanIndexRoute = AdminScanIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminScanRoute,
+} as any)
+const AdminDemandesIndexRoute = AdminDemandesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminDemandesRoute,
+} as any)
+const HubValisesIdRoute = HubValisesIdRouteImport.update({
+  id: '/valises/$id',
+  path: '/valises/$id',
+  getParentRoute: () => HubRoute,
+} as any)
+const AdminScanMatchRoute = AdminScanMatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => AdminScanRoute,
+} as any)
+const AdminDemandesIdRoute = AdminDemandesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminDemandesRoute,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
@@ -175,35 +200,10 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminDemandesIndexRoute = AdminDemandesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminDemandesRoute,
-} as any)
-const AdminDemandesIdRoute = AdminDemandesIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => AdminDemandesRoute,
-} as any)
-const AdminScanIndexRoute = AdminScanIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminScanRoute,
-} as any)
-const AdminScanMatchRoute = AdminScanMatchRouteImport.update({
-  id: '/match',
-  path: '/match',
-  getParentRoute: () => AdminScanRoute,
-} as any)
-const HubValisesIndexRoute = HubValisesIndexRouteImport.update({
-  id: '/valises/',
-  path: '/valises/',
-  getParentRoute: () => HubRoute,
-} as any)
-const HubValisesIdRoute = HubValisesIdRouteImport.update({
-  id: '/valises/$id',
-  path: '/valises/$id',
-  getParentRoute: () => HubRoute,
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -427,53 +427,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demande': {
-      id: '/demande'
-      path: '/demande'
-      fullPath: '/demande'
-      preLoaderRoute: typeof DemandeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hub': {
-      id: '/hub'
-      path: '/hub'
-      fullPath: '/hub'
-      preLoaderRoute: typeof HubRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tarifs': {
-      id: '/tarifs'
-      path: '/tarifs'
-      fullPath: '/tarifs'
-      preLoaderRoute: typeof TarifsRouteImport
+    '/vols': {
+      id: '/vols'
+      path: '/vols'
+      fullPath: '/vols'
+      preLoaderRoute: typeof VolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tutos': {
@@ -483,74 +441,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TutosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vols': {
-      id: '/vols'
-      path: '/vols'
-      fullPath: '/vols'
-      preLoaderRoute: typeof VolsRouteImport
+    '/tarifs': {
+      id: '/tarifs'
+      path: '/tarifs'
+      fullPath: '/tarifs'
+      preLoaderRoute: typeof TarifsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
+    '/demande': {
+      id: '/demande'
+      path: '/demande'
+      fullPath: '/demande'
+      preLoaderRoute: typeof DemandeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
       path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/demandes': {
-      id: '/admin/demandes'
-      path: '/demandes'
-      fullPath: '/admin/demandes'
-      preLoaderRoute: typeof AdminDemandesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/parcels': {
-      id: '/admin/parcels'
-      path: '/parcels'
-      fullPath: '/admin/parcels'
-      preLoaderRoute: typeof AdminParcelsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/profile': {
-      id: '/admin/profile'
-      path: '/profile'
-      fullPath: '/admin/profile'
-      preLoaderRoute: typeof AdminProfileRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/scan': {
-      id: '/admin/scan'
-      path: '/scan'
-      fullPath: '/admin/scan'
-      preLoaderRoute: typeof AdminScanRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/demandes/': {
-      id: '/demandes/'
-      path: '/demandes'
-      fullPath: '/demandes/'
-      preLoaderRoute: typeof DemandesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demandes/$id': {
-      id: '/demandes/$id'
-      path: '/demandes/$id'
-      fullPath: '/demandes/$id'
-      preLoaderRoute: typeof DemandesIdRouteImport
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hub/': {
@@ -560,18 +497,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubIndexRouteImport
       parentRoute: typeof HubRoute
     }
-    '/hub/arrivees': {
-      id: '/hub/arrivees'
-      path: '/arrivees'
-      fullPath: '/hub/arrivees'
-      preLoaderRoute: typeof HubArriveesRouteImport
-      parentRoute: typeof HubRoute
+    '/demandes/': {
+      id: '/demandes/'
+      path: '/demandes'
+      fullPath: '/demandes/'
+      preLoaderRoute: typeof DemandesIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/hub/departs': {
-      id: '/hub/departs'
-      path: '/departs'
-      fullPath: '/hub/departs'
-      preLoaderRoute: typeof HubDepartsRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/ops/design': {
+      id: '/ops/design'
+      path: '/ops/design'
+      fullPath: '/ops/design'
+      preLoaderRoute: typeof OpsDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub/reception': {
+      id: '/hub/reception'
+      path: '/reception'
+      fullPath: '/hub/reception'
+      preLoaderRoute: typeof HubReceptionRouteImport
       parentRoute: typeof HubRoute
     }
     '/hub/parcels': {
@@ -581,61 +532,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubParcelsRouteImport
       parentRoute: typeof HubRoute
     }
-    '/hub/reception': {
-      id: '/hub/reception'
-      path: '/reception'
-      fullPath: '/hub/reception'
-      preLoaderRoute: typeof HubReceptionRouteImport
+    '/hub/departs': {
+      id: '/hub/departs'
+      path: '/departs'
+      fullPath: '/hub/departs'
+      preLoaderRoute: typeof HubDepartsRouteImport
       parentRoute: typeof HubRoute
     }
-    '/ops/design': {
-      id: '/ops/design'
-      path: '/ops/design'
-      fullPath: '/ops/design'
-      preLoaderRoute: typeof OpsDesignRouteImport
+    '/hub/arrivees': {
+      id: '/hub/arrivees'
+      path: '/arrivees'
+      fullPath: '/hub/arrivees'
+      preLoaderRoute: typeof HubArriveesRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/demandes/$id': {
+      id: '/demandes/$id'
+      path: '/demandes/$id'
+      fullPath: '/demandes/$id'
+      preLoaderRoute: typeof DemandesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+    '/admin/scan': {
+      id: '/admin/scan'
+      path: '/scan'
+      fullPath: '/admin/scan'
+      preLoaderRoute: typeof AdminScanRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profile': {
+      id: '/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/parcels': {
+      id: '/admin/parcels'
+      path: '/parcels'
+      fullPath: '/admin/parcels'
+      preLoaderRoute: typeof AdminParcelsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/demandes': {
+      id: '/admin/demandes'
+      path: '/demandes'
+      fullPath: '/admin/demandes'
+      preLoaderRoute: typeof AdminDemandesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/admin/demandes/': {
-      id: '/admin/demandes/'
-      path: '/'
-      fullPath: '/admin/demandes/'
-      preLoaderRoute: typeof AdminDemandesIndexRouteImport
-      parentRoute: typeof AdminDemandesRoute
-    }
-    '/admin/demandes/$id': {
-      id: '/admin/demandes/$id'
-      path: '/$id'
-      fullPath: '/admin/demandes/$id'
-      preLoaderRoute: typeof AdminDemandesIdRouteImport
-      parentRoute: typeof AdminDemandesRoute
-    }
-    '/admin/scan/': {
-      id: '/admin/scan/'
-      path: '/'
-      fullPath: '/admin/scan/'
-      preLoaderRoute: typeof AdminScanIndexRouteImport
-      parentRoute: typeof AdminScanRoute
-    }
-    '/admin/scan/match': {
-      id: '/admin/scan/match'
-      path: '/match'
-      fullPath: '/admin/scan/match'
-      preLoaderRoute: typeof AdminScanMatchRouteImport
-      parentRoute: typeof AdminScanRoute
     }
     '/hub/valises/': {
       id: '/hub/valises/'
@@ -644,12 +602,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubValisesIndexRouteImport
       parentRoute: typeof HubRoute
     }
+    '/admin/scan/': {
+      id: '/admin/scan/'
+      path: '/'
+      fullPath: '/admin/scan/'
+      preLoaderRoute: typeof AdminScanIndexRouteImport
+      parentRoute: typeof AdminScanRoute
+    }
+    '/admin/demandes/': {
+      id: '/admin/demandes/'
+      path: '/'
+      fullPath: '/admin/demandes/'
+      preLoaderRoute: typeof AdminDemandesIndexRouteImport
+      parentRoute: typeof AdminDemandesRoute
+    }
     '/hub/valises/$id': {
       id: '/hub/valises/$id'
       path: '/valises/$id'
       fullPath: '/hub/valises/$id'
       preLoaderRoute: typeof HubValisesIdRouteImport
       parentRoute: typeof HubRoute
+    }
+    '/admin/scan/match': {
+      id: '/admin/scan/match'
+      path: '/match'
+      fullPath: '/admin/scan/match'
+      preLoaderRoute: typeof AdminScanMatchRouteImport
+      parentRoute: typeof AdminScanRoute
+    }
+    '/admin/demandes/$id': {
+      id: '/admin/demandes/$id'
+      path: '/$id'
+      fullPath: '/admin/demandes/$id'
+      preLoaderRoute: typeof AdminDemandesIdRouteImport
+      parentRoute: typeof AdminDemandesRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
