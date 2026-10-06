@@ -26,7 +26,7 @@ export const Route = createFileRoute("/demandes/$id")({
   notFoundComponent: DemandNotFound,
   errorComponent: ({ error }) => (
     <div className="p-8 text-center text-sm text-muted-foreground">
-      Impossible de charger cette demande. {error.message}
+      Impossible de charger cette demande. {error instanceof Error ? error.message : ""}
     </div>
   ),
 });

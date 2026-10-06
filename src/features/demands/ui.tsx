@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
-type Tone = "neutral" | "warn" | "info" | "success" | "danger";
+export type Tone = "neutral" | "warn" | "info" | "success" | "danger";
 
 const toneClasses: Record<Tone, string> = {
   neutral: "bg-muted text-muted-foreground ring-border",
-  warn: "bg-amber-500/10 text-amber-700 ring-amber-500/20",
+  warn: "bg-warning/10 text-warning ring-warning/25",
   info: "bg-primary/10 text-primary ring-primary/20",
-  success: "bg-emerald-500/10 text-emerald-700 ring-emerald-500/20",
+  success: "bg-success/10 text-success ring-success/25",
   danger: "bg-destructive/10 text-destructive ring-destructive/20",
 };
 
