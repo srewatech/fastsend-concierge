@@ -98,7 +98,7 @@ function AdminDemandDetail() {
               >
                 <div className="flex items-start gap-3">
                   {done ? (
-                    <CheckCircle2 className="size-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="size-5 text-success shrink-0 mt-0.5" />
                   ) : (
                     <Circle className="size-5 text-muted-foreground shrink-0 mt-0.5" />
                   )}
